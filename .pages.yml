@@ -63,5 +63,5 @@ content:
       - { name: fondo_claro, label: Fondo modo claro, type: string }
       - { name: tipografia, label: "Tipografía", type: select, options: { values: [Inter, Manrope, IBM Plex Sans, Space Grotesk, Sora] } }
       - { name: tema_inicial, label: Tema inicial, type: select, options: { values: [oscuro, claro] } }
-      - { name: animacion_portada, label: Animación de portada, type: select, options: { values: [malla, grilla, ninguna] } }
+      - { name: animacion_portada, label: Animación de portada, type: select, options: { values: [flujo, ninguna] } }
       - { name: intensidad_animacion, label: "Intensidad (0 a 2)", type: number }
