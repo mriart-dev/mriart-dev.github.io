@@ -65,7 +65,25 @@
     }
   ],
   "certificaciones": [
-    "First Certificate in English (FCE B2)",
-    "Excel XLS101x — Universitat Politècnica de València"
+    {
+      "nombre": "Intercambio académico internacional",
+      "detalle": "Universidad del País Vasco (UPV/EHU) · 2025–2026",
+      "clave": "intercambio|upv|ehu|pais vasco|país vasco"
+    },
+    {
+      "nombre": "First Certificate in English (FCE B2)",
+      "detalle": "Cambridge English",
+      "clave": "first|fce|cambridge"
+    },
+    {
+      "nombre": "Excel XLS101x",
+      "detalle": "Universitat Politècnica de València (edX)",
+      "clave": "excel|xls"
+    },
+    {
+      "nombre": "Título secundario",
+      "detalle": "Educación secundaria completa",
+      "clave": "secundari|bachiller|titulo|título"
+    }
   ]
 }

@@ -36,7 +36,14 @@ content:
       - { name: cv, label: "CV en PDF", type: file }
       - { name: habilidades, label: Habilidades, type: string, list: true }
       - { name: idiomas, label: Idiomas, type: string, list: true }
-      - { name: certificaciones, label: Certificaciones, type: string, list: true }
+      - name: certificaciones
+        label: Certificados y títulos
+        type: object
+        list: true
+        fields:
+          - { name: nombre, label: Nombre, type: string }
+          - { name: detalle, label: "Institución / año", type: string }
+          - { name: clave, label: "Palabras del nombre del archivo (separadas por |)", type: string }
       - name: experiencia
         label: Experiencia y formación
         type: object

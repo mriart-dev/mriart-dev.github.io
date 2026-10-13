@@ -49,17 +49,21 @@ function pintarPerfil() {
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
-  if (perfil.email) {
-    const asunto = encodeURIComponent('Contacto desde tu portfolio');
-    links.push(`<a class="btn" data-mail href="mailto:${esc(perfil.email)}?subject=${asunto}">✉ ${esc(perfil.email)}</a>`);
-    links.push(`<a class="btn ghost" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(perfil.email)}&su=${asunto}" target="_blank" rel="noopener">Escribir por Gmail</a>`);
-  }
+  if (perfil.email) links.push(`<a class="btn" data-mail href="mailto:${esc(perfil.email)}?subject=${encodeURIComponent('Contacto desde tu portfolio')}">✉ Mail</a>`);
   if (perfil.linkedin) links.push(`<a class="btn ghost" href="${esc(perfil.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
   if (perfil.telefono) links.push(`<a class="btn ghost" href="https://wa.me/${perfil.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">WhatsApp ${esc(perfil.telefono)}</a>`);
   $('#links-contacto').innerHTML = links.join('') || '<p style="color:var(--sub)">Próximamente.</p>';
-  // Además de abrir el correo, copia la dirección por si el equipo no tiene app de mail configurada
+  // Abre un mail nuevo a la dirección. Si en la compu no hay programa de correo configurado
+  // (la página no pierde el foco), abre la redacción de Gmail en una pestaña nueva.
   document.querySelectorAll('[data-mail]').forEach(a => a.addEventListener('click', () => {
-    navigator.clipboard?.writeText(perfil.email).then(() => aviso('Mail copiado: ' + perfil.email)).catch(() => {});
+    if (matchMedia('(pointer: coarse)').matches) return;
+    let salio = false;
+    const marcar = () => { salio = true; };
+    addEventListener('blur', marcar, {once: true});
+    setTimeout(() => {
+      removeEventListener('blur', marcar);
+      if (!salio && document.hasFocus()) open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(perfil.email)}&su=${encodeURIComponent('Contacto desde tu portfolio')}`, '_blank', 'noopener');
+    }, 900);
   }));
   // El CV aparece solo si el archivo existe en el repositorio
   if (perfil.cv) fetch(perfil.cv, {method: 'HEAD'}).then(r => {
@@ -78,15 +82,25 @@ async function pintarCertificados() {
     const r = await fetch('https://api.github.com/repos/mriart-dev/mriart-dev.github.io/contents/certificados');
     if (r.ok) archivos = (await r.json()).filter(f => f.type === 'file' && /\.(pdf|png|jpe?g|webp)$/i.test(f.name));
   } catch {}
-  const conArchivo = archivos.map(f => `
+  // Cada certificado del perfil se enlaza al archivo cuyo nombre contenga alguna de sus "claves"
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const usados = new Set();
+  const delPerfil = (perfil.certificaciones || []).map(c => {
+    if (typeof c === 'string') c = {nombre: c};
+    const claves = norm(c.clave || c.nombre).split('|').map(s => s.trim()).filter(Boolean);
+    const f = archivos.find(f => !usados.has(f.name) && claves.some(k => norm(f.name).includes(k)));
+    if (f) usados.add(f.name);
+    const cuerpo = `<div class="ico">${f ? (/\.pdf$/i.test(f.name) ? 'PDF' : 'IMG') : '✓'}</div>
+      <div><b>${esc(c.nombre)}</b><span>${esc(c.detalle || '')}${f ? (c.detalle ? ' · ' : '') + 'Ver documento' : ''}</span></div>`;
+    return f ? `<a class="cert revelar" href="certificados/${encodeURIComponent(f.name)}" target="_blank" rel="noopener">${cuerpo}</a>`
+             : `<div class="cert revelar">${cuerpo}</div>`;
+  });
+  const sueltos = archivos.filter(f => !usados.has(f.name)).map(f => `
     <a class="cert revelar" href="certificados/${encodeURIComponent(f.name)}" target="_blank" rel="noopener">
       <div class="ico">${/\.pdf$/i.test(f.name) ? 'PDF' : 'IMG'}</div>
-      <div><b>${esc(nombre(f.name))}</b><span>Ver certificado</span></div>
+      <div><b>${esc(nombre(f.name))}</b><span>Ver documento</span></div>
     </a>`);
-  const yaListados = archivos.map(f => nombre(f.name).toLowerCase());
-  const sinArchivo = (perfil.certificaciones || []).filter(c => !yaListados.some(n => n.includes(c.toLowerCase().slice(0, 12)))).map(c => `
-    <div class="cert revelar"><div class="ico">✓</div><div><b>${esc(c)}</b></div></div>`);
-  $('#certs').innerHTML = [...conArchivo, ...sinArchivo].join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  $('#certs').innerHTML = [...delPerfil, ...sueltos].join('') || '<p style="color:var(--sub)">Próximamente.</p>';
   observar();
 }
 
@@ -98,7 +112,7 @@ function pintarProyectos(filtro) {
     <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}">
       <div class="img"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"></div>
       <div class="info">
-        <span class="meta">${esc(p.area)} · ${esc(p.anio)}</span>
+        <span class="meta">${esc([p.area, p.anio].filter(Boolean).join(' · '))}</span>
         <h3>${esc(p.titulo)}</h3>
         <p>${esc(p.resumen)}</p>
         <ul class="chips">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
@@ -116,14 +130,14 @@ function ruta() {
       ini.hidden = true; det.hidden = false;
       det.innerHTML = `
         <a class="volver" href="#/proyectos">← Volver a proyectos</a>
-        <span class="meta">${esc(p.area)} · ${esc(p.anio)}</span>
+        <span class="meta">${esc([p.area, p.anio].filter(Boolean).join(' · '))}</span>
         <h1>${esc(p.titulo)}</h1>
         ${p.contexto ? `<p class="contexto">${esc(p.contexto)}</p>` : ''}
         <div class="det-grid">
           <div>${String(p.descripcion || '').split(/\n\s*\n/).map(t => `<p>${esc(t)}</p>`).join('')}</div>
           <dl class="ficha">
             <dt>Área</dt><dd>${esc(p.area)}</dd>
-            <dt>Año</dt><dd>${esc(p.anio)}</dd>
+            ${p.anio ? `<dt>Año</dt><dd>${esc(p.anio)}</dd>` : ''}
             <dt>Herramientas</dt><dd><ul class="chips" style="margin-top:6px">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul></dd>
             ${p.documento ? `<a class="btn" href="${esc(p.documento)}" target="_blank" rel="noopener">Ver informe completo (PDF)</a>` : ''}
           </dl>
