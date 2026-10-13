@@ -265,63 +265,74 @@ const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
 function observar() { document.querySelectorAll('.revelar:not(.visible)').forEach(el => io.observe(el)); }
 observar();
 
-// Portada: líneas de corriente (flujo potencial alrededor de un cilindro) que esquivan el mouse
+// Portada: malla de elementos finitos que se deforma alrededor del mouse
 function animarPortada() {
-  const modo = estetica.animacion_portada || 'flujo';
+  const modo = estetica.animacion_portada || 'malla';
   const cv = $('#lienzo'), ctx = cv.getContext('2d');
   if (modo === 'ninguna') { cv.remove(); return; }
   const k = Math.max(0, Math.min(2, estetica.intensidad_animacion ?? 1));
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const css = getComputedStyle(document.documentElement);
-  const acento = css.getPropertyValue('--acento').trim() || '#2f5d8a';
-  let W, H, mx = null, my = null, t = 0, parts = [];
-  const N = () => Math.round(Math.min(900, W * H / 1300) * (0.5 + k / 2));
-  const nueva = (x) => ({x: x ?? Math.random() * W, y: Math.random() * H, vida: W / 1.2 + Math.random() * W * .6});
+  const acento = getComputedStyle(document.documentElement).getPropertyValue('--acento').trim() || '#2f5d8a';
+  const hex = a => Math.round(Math.max(0, Math.min(1, a)) * 255).toString(16).padStart(2, '0');
+  let W, H, cols, filas, paso, mx = null, my = null, t = 0;
   const ajustar = () => {
     const d = devicePixelRatio || 1;
     W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-    parts = Array.from({length: N()}, () => nueva());
+    paso = W > 800 ? 48 : 40; cols = Math.ceil(W / paso) + 2; filas = Math.ceil(H / (paso * .866)) + 2;
   };
   ajustar(); addEventListener('resize', ajustar);
   cv.parentElement.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
   cv.parentElement.addEventListener('mouseleave', () => { mx = my = null; });
-  const fade = x => W > 800 ? Math.min(1, Math.max(0, (x / W - .32) / .28)) : .45;
 
-  // Velocidad del flujo uniforme U alrededor de un cilindro de radio R centrado en (cx, cy)
-  function vel(x, y, cx, cy, R) {
-    const U = 1.6 * (0.6 + k / 2);
-    const dx = x - cx, dy = y - cy, r2 = dx * dx + dy * dy, R2 = R * R;
-    if (r2 < R2) return [U, 0];
-    const r4 = r2 * r2;
-    return [U * (1 - R2 * (dx * dx - dy * dy) / r4), -U * R2 * 2 * dx * dy / r4];
-  }
-
-  const LARGO = 28;
   function cuadro() {
     ctx.clearRect(0, 0, W, H);
-    const cx = mx ?? W * (.68 + .1 * Math.sin(t * .3)), cy = my ?? H * (.5 + .2 * Math.sin(t * .45));
-    const R = Math.min(W, H) * (W > 800 ? .12 : .16);
-    ctx.lineCap = 'round';
-    for (const p of parts) {
-      const [u, v] = vel(p.x, p.y, cx, cy, R);
-      p.x += u; p.y += v;
-      (p.h ??= []).push(p.x, p.y);
-      if (p.h.length > LARGO * 2) p.h.splice(0, 2);
-      if (--p.vida < 0 || p.x > W + 5 || p.y < -5 || p.y > H + 5) { Object.assign(p, nueva(-Math.random() * 40)); p.h = []; continue; }
-      if (p.h.length < 6) continue;
-      // Más intenso donde el flujo se acelera al rodear el obstáculo
-      const rapidez = Math.hypot(u, v) / (1.6 * (0.6 + k / 2));
-      const a = fade(p.x) * Math.min(.85, .22 + .55 * Math.max(0, rapidez - .7)) * Math.min(1, p.h.length / (LARGO * 2));
-      if (a < .03) continue;
-      ctx.strokeStyle = acento + Math.round(a * 255).toString(16).padStart(2, '0');
-      ctx.lineWidth = .9 + .9 * Math.max(0, rapidez - 1);
-      ctx.beginPath(); ctx.moveTo(p.h[0], p.h[1]);
-      for (let i = 2; i < p.h.length; i += 2) ctx.lineTo(p.h[i], p.h[i + 1]);
-      ctx.stroke();
+    if (modo === 'grilla') {
+      ctx.strokeStyle = acento + '22'; ctx.lineWidth = 1;
+      const off = (t * 20 * k) % paso;
+      for (let x = -off; x < W; x += paso) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = -off; y < H; y += paso) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    } else {
+      // Sin mouse, una "carga" recorre la malla sola
+      const px = mx ?? W * (.7 + .18 * Math.sin(t * .35)), py = my ?? H * (.5 + .25 * Math.sin(t * .5));
+      const R = Math.min(W, H) * .28, A = 26 * k;
+      const P = [], S = [];
+      for (let j = 0; j < filas; j++) for (let i = 0; i < cols; i++) {
+        const x0 = (i - 1) * paso + (j % 2) * paso / 2, y0 = (j - 1) * paso * .866;
+        const dx = x0 - px, dy = y0 - py, r = Math.hypot(dx, dy) || 1;
+        const g = Math.exp(-(r * r) / (2 * R * R));
+        const ola = Math.sin(x0 * .012 + t * .8) * Math.cos(y0 * .015 + t * .6) * 3 * k;
+        P.push([x0 + dx / r * A * g + ola, y0 + dy / r * A * g + ola]);
+        S.push(g);
+      }
+      const id = (i, j) => j * cols + i;
+      // En pantallas anchas la malla se desvanece hacia el texto de la izquierda
+      const fade = x => W > 800 ? Math.min(1, Math.max(0, (x / W - .3) / .3)) : .5;
+      const linea = (a, b) => {
+        const s = (S[a] + S[b]) / 2, f = fade((P[a][0] + P[b][0]) / 2);
+        if (f <= 0) return;
+        ctx.strokeStyle = acento + hex((.1 + .55 * s) * f);
+        ctx.lineWidth = .8 + 1.2 * s;
+        ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]); ctx.lineTo(P[b][0], P[b][1]); ctx.stroke();
+      };
+      for (let j = 0; j < filas; j++) for (let i = 0; i < cols; i++) {
+        const a = id(i, j);
+        if (i + 1 < cols) linea(a, id(i + 1, j));
+        if (j + 1 < filas) {
+          const o = j % 2;
+          if (i + o < cols) linea(a, id(i + o, j + 1));
+          if (i + o - 1 >= 0) linea(a, id(i + o - 1, j + 1));
+        }
+      }
+      for (let n = 0; n < P.length; n++) {
+        const f = fade(P[n][0]);
+        if (S[n] < .2 || f <= 0) continue;
+        ctx.fillStyle = acento + hex(S[n] * f);
+        ctx.beginPath(); ctx.arc(P[n][0], P[n][1], 1.5 + 1.5 * S[n], 0, 7); ctx.fill();
+      }
     }
     if (!quieto) { t += .016; requestAnimationFrame(cuadro); }
   }
-  if (quieto) for (let i = 0; i < 160; i++) cuadro(); else cuadro();
+  cuadro();
 }
 
 cargar();
