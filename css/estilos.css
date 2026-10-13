@@ -150,3 +150,8 @@ button.cert{font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%
 .exp-fotos img{width:150px;height:100px;object-fit:cover;border-radius:8px;cursor:zoom-in;border:1px solid var(--linea);transition:transform .25s}
 .exp-fotos img:hover{transform:translateY(-3px)}
 @media (max-width:720px){.idioma{position:absolute;right:60px;top:12px}.exp-fotos img{width:calc(50% - 5px);height:90px}}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-bottom:16px}
+.videos figure{margin:0;background:#111;border-radius:10px;overflow:hidden;border:1px solid var(--linea)}
+.videos video{display:block;width:100%;max-height:560px;background:#000}
+.videos figcaption{padding:10px 14px;font-size:.85rem;color:#ccc;background:#16181c}
+.galeria img{aspect-ratio:4/3}

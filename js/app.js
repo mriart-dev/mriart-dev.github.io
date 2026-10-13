@@ -107,11 +107,11 @@ function pintarPerfil() {
   document.querySelectorAll('[data-titulo]').forEach(e => e.textContent = perfil.titulo);
   document.querySelectorAll('[data-bajada]').forEach(e => e.textContent = perfil.bajada);
   document.querySelectorAll('[data-universidad]').forEach(e => e.textContent = perfil.universidad);
-  $('#timeline').innerHTML = (perfil.experiencia || []).map((e, i) => `
+  if ($('#timeline')) $('#timeline').innerHTML = (perfil.experiencia || []).map((e, i) => `
     <li class="revelar"><span class="fecha">${esc(e.fecha)}</span><h3>${esc(e.titulo)}</h3>
     <div class="lugar">${esc(e.lugar)}</div>${e.detalle ? `<p>${esc(e.detalle)}</p>` : ''}
     ${(e.fotos || []).length ? `<div class="exp-fotos">${e.fotos.map((f, k) => `<img src="${esc(f)}" alt="${esc(e.titulo)}" data-exp="${i}" data-k="${k}" loading="lazy">`).join('')}</div>` : ''}</li>`).join('');
-  $('#timeline').querySelectorAll('.exp-fotos img').forEach(im => im.onclick = () => abrirVisor(perfil.experiencia[+im.dataset.exp].fotos, +im.dataset.k));
+  $('#timeline')?.querySelectorAll('.exp-fotos img').forEach(im => im.onclick = () => abrirVisor(perfil.experiencia[+im.dataset.exp].fotos, +im.dataset.k));
   $('#idiomas').innerHTML = (perfil.idiomas || []).map(i => `<li>${esc(i)}</li>`).join('');
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
@@ -180,7 +180,7 @@ async function pintarCertificados() {
 function pintarProyectos() {
   $('#grilla').innerHTML = proyectos.map(p => `
     <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}">
-      <div class="img" style="--fondo:url('${esc(p.portada || p.imagenes?.[0])}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"${p.portada_escala ? ` style="--escala:${+p.portada_escala}"` : ''}></div>
+      <div class="img" style="--fondo:url('${esc(new URL(p.portada || p.imagenes?.[0], location.href).href)}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"${p.portada_escala ? ` style="--escala:${+p.portada_escala}"` : ''}></div>
       <div class="info">
         <span class="meta">${esc(p.area)}</span>
         <h3>${esc(p.titulo)}</h3>
@@ -213,6 +213,7 @@ function ruta() {
           </dl>
         </div>
         ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
+        ${(p.videos || []).length ? `<div class="videos">${p.videos.map(v => `<figure><video src="${esc(v.src)}" ${v.poster ? `poster="${esc(v.poster)}"` : ''} controls muted playsinline preload="none"></video>${v.titulo ? `<figcaption>${esc(v.titulo)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}
         <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — ${t('imagen')} ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
       if (p.documento && p.mostrar_documento) {
         det.insertAdjacentHTML('beforeend', `

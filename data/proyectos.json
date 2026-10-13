@@ -1,5 +1,75 @@
 [
   {
+    "id": "fsae-itba",
+    "titulo": "Formula SAE ITBA — Diseño y fabricación",
+    "resumen": "Diseño de la transmisión y la pedalera, mockup del habitáculo y fabricación de componentes del monoplaza del equipo Formula SAE del ITBA.",
+    "descripcion": "Formo parte del equipo Formula SAE del ITBA desde 2023, un equipo interdisciplinario de estudiantes que diseña, fabrica y pone en pista un monoplaza de competición.\n\nTransmisión: diseñé la transmisión del auto, una transmisión por cadena que lleva la potencia de los motores eléctricos a las ruedas, y su integración en el chasis.\n\nPedalera: diseñé el conjunto de pedales y su montaje en el chasis.\n\nHabitáculo: construí un mockup a escala real para definir el habitáculo del nuevo auto. Con él se pueden probar posiciones de manejo con distintos pilotos antes de fijar la geometría definitiva del chasis.\n\nFabricación: participé en la construcción del auto soldando con TIG y MIG y mecanizando piezas en torno y fresadora; tengo además conocimientos básicos de CNC.",
+    "herramientas": [
+      "CAD",
+      "Diseño de transmisiones",
+      "Soldadura TIG / MIG",
+      "Torno y fresadora",
+      "CNC (básico)"
+    ],
+    "area": "Experiencia — Equipo de competición",
+    "contexto": "Equipo Formula SAE del ITBA · 2023 – actualidad",
+    "portada": "img/fsae-itba/01.jpg",
+    "imagenes": [
+      "img/fsae-itba/01.jpg",
+      "img/fsae-itba/02.jpg",
+      "img/fsae-itba/03.jpg",
+      "img/fsae-itba/04.jpg",
+      "img/fsae-itba/05.jpg",
+      "img/fsae-itba/06.jpg"
+    ],
+    "videos": [
+      {
+        "src": "video/fsae-transmision.mp4",
+        "poster": "img/fsae-itba/poster-transmision.jpg",
+        "titulo": "Transmisión por cadena con motores eléctricos"
+      },
+      {
+        "src": "video/fsae-pista.mp4",
+        "poster": "img/fsae-itba/poster-pista.jpg",
+        "titulo": "Pruebas del monoplaza en pista"
+      }
+    ]
+  },
+  {
+    "id": "di-meglio",
+    "titulo": "Di Meglio Motorsport — Turismo Carretera",
+    "resumen": "Ayudante del Departamento de Ingeniería de un equipo de Turismo Carretera: CAD, elementos finitos, ensayos, amortiguadores y adquisición de datos.",
+    "descripcion": "Durante 2023 trabajé como ayudante en el Departamento de Ingeniería de Di Meglio Motorsport, equipo de Turismo Carretera, participando tanto en el taller como en las carreras.\n\nDiseño y análisis: realicé modelado CAD y análisis por elementos finitos de distintos componentes del auto.\n\nEnsayos de rigidez: participé en la medición de la rigidez torsional del chasis de un auto y de una barra estabilizadora.\n\nAmortiguadores: trabajé en el ciclado de amortiguadores de competición Baratec en el banco de ensayo y en su mantenimiento.\n\nAdquisición de datos: instalé sistemas de adquisición de datos MoTeC en autos de Turismo Carretera y Turismo Nacional, y analicé los datos registrados en pista. También analicé datos del sistema AiM Solo para ayudar a los pilotos a entender mejor su desempeño en cada vuelta y en cada sector del circuito.",
+    "herramientas": [
+      "CAD",
+      "Análisis por elementos finitos",
+      "MoTeC i2 Pro",
+      "AiM",
+      "Ensayos de rigidez",
+      "Banco de amortiguadores"
+    ],
+    "area": "Experiencia — Automovilismo",
+    "contexto": "Departamento de Ingeniería · 2023",
+    "portada": "img/di-meglio/01.jpg",
+    "imagenes": [
+      "img/di-meglio/01.jpg",
+      "img/di-meglio/02.jpg",
+      "img/di-meglio/03.jpg",
+      "img/di-meglio/04.jpg",
+      "img/di-meglio/05.jpg",
+      "img/di-meglio/06.jpg",
+      "img/di-meglio/07.jpg",
+      "img/di-meglio/08.jpg",
+      "img/di-meglio/09.jpg",
+      "img/di-meglio/10.jpg",
+      "img/di-meglio/11.jpg",
+      "img/di-meglio/12.jpg",
+      "img/di-meglio/13.jpg",
+      "img/di-meglio/14.jpg",
+      "img/di-meglio/15.jpg"
+    ]
+  },
+  {
     "id": "baja-bug",
     "titulo": "Baja Bug — Chasis tubular",
     "resumen": "Diseño 3D del chasis tubular de un vehículo off-road biplaza e integración de sus componentes principales.",
