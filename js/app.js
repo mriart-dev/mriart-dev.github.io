@@ -8,6 +8,7 @@ async function cargar() {
   aplicarEstetica();
   pintarPerfil();
   pintarCertificados();
+  if (perfil.cv) { $('#cv-descarga').href = perfil.cv; mostrarPDF(perfil.cv, $('#cv-paginas')); } else $('#curriculum').remove();
   pintarProyectos();
   ruta();
   animarPortada();
@@ -186,7 +187,7 @@ async function mostrarPDF(url, cont) {
     const lib = await cargarPdfJs();
     const pdf = await lib.getDocument(url).promise;
     cont.innerHTML = '';
-    const ancho = Math.min(cont.clientWidth - 16, 860) * Math.min(devicePixelRatio || 1, 2);
+    const ancho = Math.min(Math.max(cont.clientWidth, 640) - 16, 860) * Math.min(devicePixelRatio || 1, 2);
     const io2 = new IntersectionObserver(es => es.forEach(async e => {
       if (!e.isIntersecting || e.target.dataset.hecho) return;
       e.target.dataset.hecho = 1;

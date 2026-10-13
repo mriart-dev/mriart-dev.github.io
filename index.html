@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232f5d8a'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='%23ffffff' text-anchor='middle'>MR</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link id="font-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/estilos.css?v=202610132228">
+<link rel="stylesheet" href="css/estilos.css?v=202610132235">
 </head>
 <body>
 <header class="nav">
@@ -21,6 +21,7 @@
     <a href="#/experiencia">Experiencia</a>
     <a href="#/certificados">Certificados</a>
     <a href="#/sobre-mi">Sobre mí</a>
+    <a href="#/curriculum">CV</a>
     <a href="#/contacto">Contacto</a>
     <button id="tema" aria-label="Cambiar modo claro/oscuro">◐</button>
   </nav>
@@ -71,8 +72,16 @@
     </div>
   </section>
 
+  <section id="curriculum" class="bloque">
+    <div class="cabecera revelar"><span class="num">05</span><h2>Currículum</h2></div>
+    <div class="lector">
+      <div class="lector-cab"><h3>CV — Manuel Riart</h3><a class="btn ghost" id="cv-descarga" href="cv.pdf" target="_blank" rel="noopener">Abrir / descargar PDF</a></div>
+      <div class="paginas" id="cv-paginas"><p class="cargando">Cargando CV…</p></div>
+    </div>
+  </section>
+
   <section id="contacto" class="bloque">
-    <div class="cabecera revelar"><span class="num">05</span><h2>Contacto</h2></div>
+    <div class="cabecera revelar"><span class="num">06</span><h2>Contacto</h2></div>
     <div class="contacto revelar" id="links-contacto"></div>
   </section>
   <footer>© <span id="anio"></span> <span data-nombre>Manuel Riart</span></footer>
@@ -81,6 +90,6 @@
 <article id="detalle" hidden></article>
 <div id="visor" hidden><button class="cerrar" aria-label="Cerrar">×</button><button class="prev" aria-label="Anterior">‹</button><img alt="" hidden><button class="next" aria-label="Siguiente">›</button></div>
 
-<script src="js/app.js?v=202610132228"></script>
+<script src="js/app.js?v=202610132235"></script>
 </body>
 </html>
