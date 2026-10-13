@@ -116,7 +116,7 @@ function pintarProyectos(filtro) {
   $('#filtros').querySelectorAll('button').forEach(b => b.onclick = () => pintarProyectos(b.textContent));
   $('#grilla').innerHTML = proyectos.filter(p => filtro === 'Todos' || p.area === filtro).map(p => `
     <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}">
-      <div class="img"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"></div>
+      <div class="img" style="--fondo:url('${esc(p.portada || p.imagenes?.[0])}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"></div>
       <div class="info">
         <span class="meta">${esc([p.area, p.anio].filter(Boolean).join(' · '))}</span>
         <h3>${esc(p.titulo)}</h3>
