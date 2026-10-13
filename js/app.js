@@ -121,7 +121,16 @@ function ruta() {
           </dl>
         </div>
         ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
-        <div class="galeria">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — imagen ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
+        <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — imagen ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
+      if (p.documento && p.mostrar_documento) {
+        det.insertAdjacentHTML('beforeend', `
+          <section class="lector">
+            <div class="lector-cab"><h3>Informe completo</h3>
+              <a class="btn ghost" href="${esc(p.documento)}" target="_blank" rel="noopener">Abrir / descargar PDF</a></div>
+            <div class="paginas" id="paginas"><p class="cargando">Cargando informe…</p></div>
+          </section>`);
+        mostrarPDF(p.documento, $('#paginas'));
+      }
       det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
       document.title = `${p.titulo} — ${perfil.nombre}`;
       scrollTo(0, 0);
@@ -134,6 +143,44 @@ function ruta() {
   if (sec) sec.scrollIntoView({behavior: 'smooth'});
 }
 addEventListener('hashchange', ruta);
+
+// Lector de PDF dentro de la página (PDF.js funciona también en celulares)
+const PDFJS = 'js/vendor/'; // PDF.js 3.11.174
+let pdfjsListo;
+function cargarPdfJs() {
+  return pdfjsListo ??= new Promise((ok, mal) => {
+    const s = document.createElement('script');
+    s.src = PDFJS + 'pdf.min.js';
+    s.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; ok(pdfjsLib); };
+    s.onerror = mal;
+    document.head.appendChild(s);
+  });
+}
+async function mostrarPDF(url, cont) {
+  try {
+    const lib = await cargarPdfJs();
+    const pdf = await lib.getDocument(url).promise;
+    cont.innerHTML = '';
+    const ancho = Math.min(cont.clientWidth - 16, 860) * Math.min(devicePixelRatio || 1, 2);
+    const io2 = new IntersectionObserver(es => es.forEach(async e => {
+      if (!e.isIntersecting || e.target.dataset.hecho) return;
+      e.target.dataset.hecho = 1;
+      const pag = await pdf.getPage(+e.target.dataset.n);
+      const vp0 = pag.getViewport({scale: 1}), vp = pag.getViewport({scale: ancho / vp0.width});
+      e.target.width = vp.width; e.target.height = vp.height;
+      pag.render({canvasContext: e.target.getContext('2d'), viewport: vp});
+    }), {root: cont, rootMargin: '800px 0px'});
+    const vp1 = (await pdf.getPage(1)).getViewport({scale: 1});
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const c = document.createElement('canvas');
+      c.dataset.n = n; c.width = vp1.width; c.height = vp1.height;
+      c.setAttribute('aria-label', `Página ${n} del informe`);
+      cont.appendChild(c); io2.observe(c);
+    }
+  } catch {
+    cont.innerHTML = `<p class="cargando">No se pudo mostrar el informe aquí. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--acento)">Abrilo en una pestaña nueva</a>.</p>`;
+  }
+}
 
 let galeria = [], idx = 0;
 function abrirVisor(imgs, i) { galeria = imgs; idx = i; $('#visor').hidden = false; mostrar(); }

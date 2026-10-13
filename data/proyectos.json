@@ -35,12 +35,9 @@
     "documento": "docs/prensa-placas-carbono.pdf",
     "portada": "img/prensa-carbono/portada.jpg",
     "imagenes": [
-      "img/prensa-carbono/portada.jpg",
-      "img/prensa-carbono/esquema-capas.png",
-      "img/prensa-carbono/layouts-potencia.png",
-      "img/prensa-carbono/comparacion-layouts.png",
-      "img/prensa-carbono/ciclo-curado.png"
-    ]
+      "img/prensa-carbono/portada.jpg"
+    ],
+    "mostrar_documento": true
   },
   {
     "id": "baja-bug",
