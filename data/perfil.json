@@ -1,7 +1,7 @@
 {
   "nombre": "Manuel Riart",
   "titulo": "Estudiante avanzado de Ingeniería Mecánica",
-  "bajada": "Estudiante de Ingeniería Mecánica con orientación automotriz en el ITBA. Experiencia en el departamento de ingeniería de un equipo de Turismo Carretera y en el diseño y la fabricación de un monoplaza Formula SAE. Combino CAD, análisis por elementos finitos, adquisición de datos y trabajo de taller.",
+  "bajada": "Con orientación automotriz en el ITBA. Experiencia en el departamento de ingeniería de un equipo de Turismo Carretera y en el diseño y la fabricación de un monoplaza Formula SAE. Combino CAD, análisis por elementos finitos, adquisición de datos y trabajo de taller.",
   "universidad": "ITBA — Ingeniería Mecánica, orientación Automotriz · Intercambio en la Universidad del País Vasco (UPV/EHU)",
   "email": "mriart@itba.edu.ar",
   "linkedin": "https://www.linkedin.com/in/manuel-riart-40a1b0241/",
@@ -35,7 +35,7 @@
   "experiencia": [
     {
       "fecha": "Oct 2026",
-      "titulo": "1.er puesto — Ford Innovation Challenge III: AI Edition",
+      "titulo": "1.er puesto — Ford Innovation Challenge III: AI",
       "lugar": "Ford Argentina",
       "detalle": "Ganador del desafío Data-Driven Predictive Quality."
     },
@@ -73,7 +73,7 @@
     },
     {
       "nombre": "Intercambio académico internacional",
-      "detalle": "Universidad del País Vasco (UPV/EHU) · 2025–2026",
+      "detalle": "Universidad del País Vasco (UPV/EHU) · Sep 2025 – Ene 2026",
       "clave": "intercambio|upv|ehu",
       "archivo": "Riart, Manuel - intercambio.pdf"
     },

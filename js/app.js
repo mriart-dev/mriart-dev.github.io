@@ -252,7 +252,7 @@ function aviso(texto) {
 
 let galeria = [], idx = 0;
 function abrirVisor(imgs, i) { galeria = imgs; idx = i; $('#visor').hidden = false; mostrar(); }
-function mostrar() { $('#visor img').src = galeria[idx]; }
+function mostrar() { const im = $('#visor img'); im.src = galeria[idx]; im.hidden = false; }
 $('#visor .cerrar').onclick = () => $('#visor').hidden = true;
 $('#visor .prev').onclick = e => { e.stopPropagation(); idx = (idx - 1 + galeria.length) % galeria.length; mostrar(); };
 $('#visor .next').onclick = e => { e.stopPropagation(); idx = (idx + 1) % galeria.length; mostrar(); };
