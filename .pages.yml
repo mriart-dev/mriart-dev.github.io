@@ -43,7 +43,8 @@ content:
         fields:
           - { name: nombre, label: Nombre, type: string }
           - { name: detalle, label: "Institución / año", type: string }
-          - { name: clave, label: "Palabras del nombre del archivo (separadas por |)", type: string }
+          - { name: archivo, label: "Archivo (nombre exacto dentro de certificados/)", type: string }
+          - { name: clave, label: "O palabras del nombre del archivo (separadas por |)", type: string }
       - name: experiencia
         label: Experiencia y formación
         type: object

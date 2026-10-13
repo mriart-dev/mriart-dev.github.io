@@ -66,24 +66,34 @@
   ],
   "certificaciones": [
     {
+      "nombre": "1.er puesto — Ford Innovation Challenge III: AI",
+      "detalle": "Desafío Data-Driven Predictive Quality · Ford Argentina · Oct 2026",
+      "clave": "reconocimiento|ford|fic iii",
+      "archivo": "Reconocimiento FIC III.pdf"
+    },
+    {
       "nombre": "Intercambio académico internacional",
       "detalle": "Universidad del País Vasco (UPV/EHU) · 2025–2026",
-      "clave": "intercambio|upv|ehu|pais vasco|país vasco"
+      "clave": "intercambio|upv|ehu",
+      "archivo": "Riart, Manuel - intercambio.pdf"
     },
     {
       "nombre": "First Certificate in English (FCE B2)",
-      "detalle": "Cambridge English",
-      "clave": "first|fce|cambridge"
+      "detalle": "Cambridge Assessment English · 2019",
+      "clave": "ingles|first|fce|cambridge",
+      "archivo": "62552-Manuel Riart-Inglés .pdf"
     },
     {
-      "nombre": "Excel XLS101x",
-      "detalle": "Universitat Politècnica de València (edX)",
-      "clave": "excel|xls"
+      "nombre": "Excel: Fundamentos y herramientas (XLS101x)",
+      "detalle": "Universitat Politècnica de València · edX",
+      "clave": "xls|excel",
+      "archivo": "Certificado UPValenciaX xls101x _ edX.pdf"
     },
     {
       "nombre": "Título secundario",
-      "detalle": "Educación secundaria completa",
-      "clave": "secundari|bachiller|titulo|título"
+      "detalle": "Instituto Privado de la Paz, San Nicolás de los Arroyos",
+      "clave": "secundari|bachiller",
+      "archivo": "Título secundario (1).pdf"
     }
   ]
 }

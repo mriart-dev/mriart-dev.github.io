@@ -95,7 +95,9 @@ async function pintarCertificados() {
   const delPerfil = (perfil.certificaciones || []).map(c => {
     if (typeof c === 'string') c = {nombre: c};
     const claves = norm(c.clave || c.nombre).split('|').map(s => s.trim()).filter(Boolean);
-    const f = archivos.find(f => !usados.has(f.name) && claves.some(k => norm(f.name).includes(k)));
+    // Primero por nombre exacto de archivo; si no hay, por palabras clave
+    const f = archivos.find(f => c.archivo && f.name === c.archivo)
+      || (c.archivo ? null : archivos.find(f => !usados.has(f.name) && claves.some(k => norm(f.name).includes(k))));
     if (f) usados.add(f.name);
     return tarjeta(c.nombre, c.detalle, f);
   });
