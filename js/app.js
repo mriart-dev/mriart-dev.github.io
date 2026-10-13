@@ -213,7 +213,7 @@ function ruta() {
           </dl>
         </div>
         ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
-        ${(p.videos || []).length ? `<div class="videos">${p.videos.map(v => `<figure><video src="${esc(v.src)}" ${v.poster ? `poster="${esc(v.poster)}"` : ''} controls muted playsinline preload="none"></video>${v.titulo ? `<figcaption>${esc(v.titulo)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}
+        ${(p.videos || []).length ? `<div class="videos">${p.videos.map(v => `<figure><video src="${esc(v.src)}" ${v.poster ? `poster="${esc(v.poster)}"` : ''} muted loop playsinline autoplay preload="metadata" disablepictureinpicture></video>${v.titulo ? `<figcaption>${esc(v.titulo)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}
         <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — ${t('imagen')} ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
       if (p.documento && p.mostrar_documento) {
         det.insertAdjacentHTML('beforeend', `
@@ -225,6 +225,8 @@ function ruta() {
         mostrarPDF(p.documento, $('#paginas'));
       }
       det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
+      const ioVid = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .3});
+      det.querySelectorAll('.videos video').forEach(v => { v.muted = true; ioVid.observe(v); });
       document.title = `${p.titulo} — ${perfil.nombre}`;
       scrollTo(0, 0);
       return;
