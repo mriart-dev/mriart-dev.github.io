@@ -7,6 +7,7 @@ async function cargar() {
   [proyectos, perfil, estetica] = await Promise.all([get('proyectos'), get('perfil'), get('estetica')]);
   aplicarEstetica();
   pintarPerfil();
+  pintarCertificados();
   pintarProyectos('Todos');
   ruta();
   animarPortada();
@@ -45,7 +46,6 @@ function pintarPerfil() {
     <li class="revelar"><span class="fecha">${esc(e.fecha)}</span><h3>${esc(e.titulo)}</h3>
     <div class="lugar">${esc(e.lugar)}</div>${e.detalle ? `<p>${esc(e.detalle)}</p>` : ''}</li>`).join('');
   $('#idiomas').innerHTML = (perfil.idiomas || []).map(i => `<li>${esc(i)}</li>`).join('');
-  $('#certificaciones').innerHTML = (perfil.certificaciones || []).map(i => `<li>${esc(i)}</li>`).join('');
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
@@ -60,6 +60,26 @@ function pintarPerfil() {
     $('#links-contacto').insertAdjacentHTML('beforeend', `<a class="btn ghost" href="${esc(perfil.cv)}" target="_blank" rel="noopener">Descargar CV (PDF)</a>`);
   }).catch(() => {});
   $('#anio').textContent = new Date().getFullYear();
+}
+
+// Lista los archivos de la carpeta certificados/ del repositorio (se actualiza sola al subir archivos)
+async function pintarCertificados() {
+  const nombre = f => decodeURIComponent(f).replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ');
+  let archivos = [];
+  try {
+    const r = await fetch('https://api.github.com/repos/mriart-dev/mriart-dev.github.io/contents/certificados');
+    if (r.ok) archivos = (await r.json()).filter(f => f.type === 'file' && /\.(pdf|png|jpe?g|webp)$/i.test(f.name));
+  } catch {}
+  const conArchivo = archivos.map(f => `
+    <a class="cert revelar" href="certificados/${encodeURIComponent(f.name)}" target="_blank" rel="noopener">
+      <div class="ico">${/\.pdf$/i.test(f.name) ? 'PDF' : 'IMG'}</div>
+      <div><b>${esc(nombre(f.name))}</b><span>Ver certificado</span></div>
+    </a>`);
+  const yaListados = archivos.map(f => nombre(f.name).toLowerCase());
+  const sinArchivo = (perfil.certificaciones || []).filter(c => !yaListados.some(n => n.includes(c.toLowerCase().slice(0, 12)))).map(c => `
+    <div class="cert revelar"><div class="ico">✓</div><div><b>${esc(c)}</b></div></div>`);
+  $('#certs').innerHTML = [...conArchivo, ...sinArchivo].join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  observar();
 }
 
 function pintarProyectos(filtro) {
@@ -133,58 +153,70 @@ const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
 function observar() { document.querySelectorAll('.revelar:not(.visible)').forEach(el => io.observe(el)); }
 observar();
 
-// Portada: estructura tubular en wireframe que gira y sigue al mouse
+// Portada: malla de elementos finitos que se deforma alrededor del mouse
 function animarPortada() {
-  const modo = estetica.animacion_portada || 'estructura';
+  const modo = estetica.animacion_portada || 'malla';
   const cv = $('#lienzo'), ctx = cv.getContext('2d');
   if (modo === 'ninguna') { cv.remove(); return; }
   const k = Math.max(0, Math.min(2, estetica.intensidad_animacion ?? 1));
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W, H, mx = 0, my = 0;
-  const ajustar = () => { const d = devicePixelRatio || 1; W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+  const acento = getComputedStyle(document.documentElement).getPropertyValue('--acento').trim() || '#2f5d8a';
+  const hex = a => Math.round(Math.max(0, Math.min(1, a)) * 255).toString(16).padStart(2, '0');
+  let W, H, cols, filas, paso, mx = null, my = null, t = 0;
+  const ajustar = () => {
+    const d = devicePixelRatio || 1;
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+    paso = W > 800 ? 48 : 40; cols = Math.ceil(W / paso) + 2; filas = Math.ceil(H / (paso * .866)) + 2;
+  };
   ajustar(); addEventListener('resize', ajustar);
-  addEventListener('mousemove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+  cv.parentElement.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+  cv.parentElement.addEventListener('mouseleave', () => { mx = my = null; });
 
-  // Nodos de un chasis simplificado: anillos (secciones) a lo largo del eje x
-  const secciones = [[-2.2, .5, .35], [-1.4, .8, .6], [-.4, 1, 1.1], [.6, 1, 1.15], [1.5, .9, .9], [2.2, .8, .7]];
-  const N = [], A = [];
-  secciones.forEach(([x, w, h], i) => {
-    const b = N.length;
-    N.push([x, -w, 0], [x, w, 0], [x, w, h], [x, -w, h]);
-    for (let j = 0; j < 4; j++) A.push([b + j, b + (j + 1) % 4]);
-    if (i) {
-      const a = b - 4;
-      for (let j = 0; j < 4; j++) A.push([a + j, b + j]);
-      A.push([a, b + 1], [a + 3, b + 2], [a + 1, b + 2], [a, b + 3]);
-    }
-  });
-  const acento = getComputedStyle(document.documentElement).getPropertyValue('--acento').trim() || '#4f7cac';
-  let t = 0;
   function cuadro() {
     ctx.clearRect(0, 0, W, H);
-    const s = Math.min(W, H) * (W > 800 ? .15 : .2), cx = W * (W > 800 ? .68 : .5), cy = H * .55;
     if (modo === 'grilla') {
       ctx.strokeStyle = acento + '22'; ctx.lineWidth = 1;
-      const p = 40, off = (t * 20 * k) % p;
-      for (let x = -off; x < W; x += p) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-      for (let y = -off; y < H; y += p) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      const off = (t * 20 * k) % paso;
+      for (let x = -off; x < W; x += paso) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = -off; y < H; y += paso) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
     } else {
-      const ry = t * .25 * k + mx * .8, rx = -.35 + my * .4;
-      const P = N.map(([x, y, z]) => {
-        z -= .5;
-        let X = x * Math.cos(ry) - y * Math.sin(ry), Y = x * Math.sin(ry) + y * Math.cos(ry);
-        let Z = z * Math.cos(rx) - Y * Math.sin(rx); Y = z * Math.sin(rx) + Y * Math.cos(rx);
-        const f = 5 / (5 + Y);
-        return [cx + X * s * f, cy - Z * s * f, f];
-      });
-      ctx.lineWidth = 1.2;
-      A.forEach(([a, b]) => {
-        const al = Math.round(Math.min(1, (P[a][2] + P[b][2]) / 2 - .55) * 200);
-        ctx.strokeStyle = acento + Math.max(30, Math.min(220, al)).toString(16).padStart(2, '0');
+      // Sin mouse, una "carga" recorre la malla sola
+      const px = mx ?? W * (.7 + .18 * Math.sin(t * .35)), py = my ?? H * (.5 + .25 * Math.sin(t * .5));
+      const R = Math.min(W, H) * .28, A = 26 * k;
+      const P = [], S = [];
+      for (let j = 0; j < filas; j++) for (let i = 0; i < cols; i++) {
+        const x0 = (i - 1) * paso + (j % 2) * paso / 2, y0 = (j - 1) * paso * .866;
+        const dx = x0 - px, dy = y0 - py, r = Math.hypot(dx, dy) || 1;
+        const g = Math.exp(-(r * r) / (2 * R * R));
+        const ola = Math.sin(x0 * .012 + t * .8) * Math.cos(y0 * .015 + t * .6) * 3 * k;
+        P.push([x0 + dx / r * A * g + ola, y0 + dy / r * A * g + ola]);
+        S.push(g);
+      }
+      const id = (i, j) => j * cols + i;
+      // En pantallas anchas la malla se desvanece hacia el texto de la izquierda
+      const fade = x => W > 800 ? Math.min(1, Math.max(0, (x / W - .3) / .3)) : .5;
+      const linea = (a, b) => {
+        const s = (S[a] + S[b]) / 2, f = fade((P[a][0] + P[b][0]) / 2);
+        if (f <= 0) return;
+        ctx.strokeStyle = acento + hex((.1 + .55 * s) * f);
+        ctx.lineWidth = .8 + 1.2 * s;
         ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]); ctx.lineTo(P[b][0], P[b][1]); ctx.stroke();
-      });
-      ctx.fillStyle = acento;
-      P.forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 2, 0, 7); ctx.fill(); });
+      };
+      for (let j = 0; j < filas; j++) for (let i = 0; i < cols; i++) {
+        const a = id(i, j);
+        if (i + 1 < cols) linea(a, id(i + 1, j));
+        if (j + 1 < filas) {
+          const o = j % 2;
+          if (i + o < cols) linea(a, id(i + o, j + 1));
+          if (i + o - 1 >= 0) linea(a, id(i + o - 1, j + 1));
+        }
+      }
+      for (let n = 0; n < P.length; n++) {
+        const f = fade(P[n][0]);
+        if (S[n] < .2 || f <= 0) continue;
+        ctx.fillStyle = acento + hex(S[n] * f);
+        ctx.beginPath(); ctx.arc(P[n][0], P[n][1], 1.5 + 1.5 * S[n], 0, 7); ctx.fill();
+      }
     }
     if (!quieto) { t += .016; requestAnimationFrame(cuadro); }
   }

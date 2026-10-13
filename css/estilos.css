@@ -93,3 +93,9 @@ footer{text-align:center;color:var(--sub);font-size:.85rem;padding:60px 16px 40p
 .galeria img{background:#fff;object-fit:contain}
 .galeria img:first-child{object-fit:cover}
 @media (max-width:720px){.sobre-cols{grid-template-columns:1fr}}
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
+.cert{display:flex;gap:14px;align-items:center;background:var(--bg2);border:1px solid var(--linea);border-radius:12px;padding:16px 18px;transition:transform .25s,border-color .25s}
+a.cert:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--acento) 50%,transparent)}
+.cert .ico{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:.7rem;font-weight:600;letter-spacing:.04em;color:var(--acento);background:color-mix(in srgb,var(--acento) 12%,transparent)}
+.cert b{display:block;font-weight:500;font-size:.95rem;line-height:1.35}
+.cert span{color:var(--sub);font-size:.8rem}

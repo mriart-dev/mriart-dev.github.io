@@ -1,7 +1,7 @@
 {
   "nombre": "Manuel Riart",
   "titulo": "Estudiante avanzado de Ingeniería Mecánica",
-  "bajada": "Estudiante de Ingeniería Mecánica con orientación automotriz en el ITBA. Experiencia en telemetría de Turismo Carretera y en el desarrollo de un monoplaza Formula SAE. Me enfoco en ingeniería de producto, diseño, análisis por elementos finitos, CAD y manufactura.",
+  "bajada": "Estudiante de Ingeniería Mecánica con orientación automotriz en el ITBA. Experiencia en el departamento de ingeniería de un equipo de Turismo Carretera y en el diseño y la fabricación de un monoplaza Formula SAE. Combino CAD, análisis por elementos finitos, adquisición de datos y trabajo de taller.",
   "universidad": "ITBA — Ingeniería Mecánica, orientación Automotriz · Intercambio en la Universidad del País Vasco (UPV/EHU)",
   "email": "mriart@itba.edu.ar",
   "linkedin": "https://www.linkedin.com/in/manuel-riart-40a1b0241/",
@@ -10,15 +10,20 @@
     "CATIA V5",
     "Siemens NX",
     "SolidWorks",
+    "Análisis por elementos finitos",
     "GT-SUITE",
-    "MoTeC i2 Pro",
     "OptimumKinematics",
+    "MoTeC i2 Pro",
+    "AiM",
     "MATLAB",
     "Python",
     "Arduino",
-    "Telemetría",
-    "Motores de combustión interna",
-    "Sistemas mecatrónicos"
+    "Soldadura TIG / MIG",
+    "Torno y fresadora",
+    "CNC (básico)",
+    "Ensayos de rigidez",
+    "Amortiguadores de competición",
+    "Adquisición de datos"
   ],
   "telefono": "+54 9 3460 69 7836",
   "foto": "https://github.com/mriart-dev.png",
@@ -42,15 +47,15 @@
     },
     {
       "fecha": "2023 – actualidad",
-      "titulo": "Formula SAE ITBA",
+      "titulo": "Diseño y fabricación — Formula SAE ITBA",
       "lugar": "Equipo de competición universitario",
-      "detalle": "Diseño y construcción de un monoplaza de competición en un equipo interdisciplinario, con herramientas CAD y gestión de proyectos."
+      "detalle": "Diseño de la transmisión y de la pedalera. Desarrollo de un mockup para definir el habitáculo del nuevo monoplaza. Fabricación de componentes con soldadura TIG y MIG, torno y fresadora; conocimientos básicos de CNC."
     },
     {
       "fecha": "2023",
-      "titulo": "Telemetría — Turismo Carretera",
+      "titulo": "Ayudante del Departamento de Ingeniería — Turismo Carretera",
       "lugar": "Di Meglio Motorsport",
-      "detalle": "Recopilación de datos en pista y análisis de telemetría y video del vehículo. Participación en revisiones técnicas y resolución de problemas, considerando diseño mecánico, selección de materiales y manufactura."
+      "detalle": "Modelado CAD y análisis por elementos finitos de componentes. Ensayos de rigidez torsional del chasis y de la barra estabilizadora. Ciclado y mantenimiento de amortiguadores de competición. Instalación de adquisición de datos MoTeC en autos de Turismo Carretera y Turismo Nacional, y análisis de datos (MoTeC y AiM Solo) para ayudar a los pilotos a mejorar su desempeño."
     },
     {
       "fecha": "2021 – actualidad",
