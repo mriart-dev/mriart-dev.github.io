@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manuel Riart — Ingeniería Mecánica</title>
+<meta name="description" content="Portfolio de Manuel Riart, estudiante de Ingeniería Mecánica. Proyectos de diseño mecánico y CAD.">
+<meta property="og:title" content="Manuel Riart — Ingeniería Mecánica">
+<meta property="og:description" content="Portfolio de proyectos de diseño mecánico y CAD.">
+<meta property="og:image" content="img/baja-bug/05.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230e1116'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='%234f7cac' text-anchor='middle'>MR</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link id="font-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<header class="nav">
+  <a href="#/" class="logo" data-nombre>Manuel Riart</a>
+  <nav>
+    <a href="#/proyectos">Proyectos</a>
+    <a href="#/sobre-mi">Sobre mí</a>
+    <a href="#/contacto">Contacto</a>
+    <button id="tema" aria-label="Cambiar modo claro/oscuro">◐</button>
+  </nav>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <canvas id="lienzo" aria-hidden="true"></canvas>
+    <div class="hero-txt revelar">
+      <p class="eyebrow" data-titulo>Estudiante de Ingeniería Mecánica</p>
+      <h1 data-nombre>Manuel Riart</h1>
+      <p class="bajada" data-bajada></p>
+      <div class="acciones">
+        <a class="btn" href="#/proyectos">Ver proyectos</a>
+        <a class="btn ghost" id="btn-cv" href="#" target="_blank" rel="noopener" hidden>Descargar CV</a>
+      </div>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <section id="proyectos" class="bloque">
+    <div class="cabecera revelar">
+      <span class="num">01</span><h2>Proyectos</h2>
+    </div>
+    <div class="filtros" id="filtros"></div>
+    <div class="grilla" id="grilla"></div>
+  </section>
+
+  <section id="sobre-mi" class="bloque">
+    <div class="cabecera revelar"><span class="num">02</span><h2>Sobre mí</h2></div>
+    <div class="sobre revelar">
+      <p data-bajada></p>
+      <p class="uni" data-universidad></p>
+      <ul class="chips" id="habilidades"></ul>
+    </div>
+  </section>
+
+  <section id="contacto" class="bloque">
+    <div class="cabecera revelar"><span class="num">03</span><h2>Contacto</h2></div>
+    <div class="contacto revelar" id="links-contacto"></div>
+  </section>
+  <footer>© <span id="anio"></span> <span data-nombre>Manuel Riart</span></footer>
+</main>
+
+<article id="detalle" hidden></article>
+<div id="visor" hidden><button class="cerrar" aria-label="Cerrar">×</button><button class="prev" aria-label="Anterior">‹</button><img alt=""><button class="next" aria-label="Siguiente">›</button></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+media:
+  input: img
+  output: img
+content:
+  - name: proyectos
+    label: Proyectos
+    type: file
+    path: data/proyectos.json
+    list: true
+    fields:
+      - { name: id, label: "ID (sin espacios, ej: baja-bug)", type: string }
+      - { name: titulo, label: Título, type: string }
+      - { name: resumen, label: "Resumen (una línea)", type: string }
+      - { name: descripcion, label: Descripción, type: text }
+      - { name: herramientas, label: Herramientas, type: string, list: true }
+      - { name: area, label: Área, type: string }
+      - { name: anio, label: Año, type: string }
+      - { name: portada, label: Imagen de portada, type: image }
+      - { name: imagenes, label: Galería, type: image, list: true }
+  - name: perfil
+    label: Perfil
+    type: file
+    path: data/perfil.json
+    fields:
+      - { name: nombre, label: Nombre, type: string }
+      - { name: titulo, label: Título, type: string }
+      - { name: bajada, label: Presentación, type: text }
+      - { name: universidad, label: Universidad, type: string }
+      - { name: email, label: Email, type: string }
+      - { name: linkedin, label: "LinkedIn (URL)", type: string }
+      - { name: cv, label: "CV en PDF", type: file }
+      - { name: habilidades, label: Habilidades, type: string, list: true }
+  - name: estetica
+    label: Estética
+    type: file
+    path: data/estetica.json
+    fields:
+      - { name: acento, label: Color de acento, type: string }
+      - { name: fondo_oscuro, label: Fondo modo oscuro, type: string }
+      - { name: fondo_claro, label: Fondo modo claro, type: string }
+      - { name: tipografia, label: "Tipografía", type: select, options: { values: [Inter, Manrope, IBM Plex Sans, Space Grotesk, Sora] } }
+      - { name: tema_inicial, label: Tema inicial, type: select, options: { values: [oscuro, claro] } }
+      - { name: animacion_portada, label: Animación de portada, type: select, options: { values: [estructura, grilla, ninguna] } }
+      - { name: intensidad_animacion, label: "Intensidad (0 a 2)", type: number }

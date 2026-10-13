@@ -1,0 +1,13 @@
+[
+  {
+    "id": "baja-bug",
+    "titulo": "Baja Bug — Chasis tubular",
+    "resumen": "Diseño 3D del chasis tubular de un vehículo off-road biplaza e integración de sus componentes principales.",
+    "descripcion": "Modelado en CATIA V5 de la estructura tubular de un buggy off-road: jaula antivuelco, triangulación de la estructura y puntos de anclaje. Sobre el chasis se integraron asientos, suspensión trasera con amortiguadores, tren motriz y ruedas para verificar espacios, ergonomía y montaje del conjunto.",
+    "herramientas": ["CATIA V5", "Diseño de estructuras", "Ensambles"],
+    "area": "Diseño CAD",
+    "anio": "2026",
+    "portada": "img/baja-bug/05.jpg",
+    "imagenes": ["img/baja-bug/05.jpg", "img/baja-bug/03.jpg", "img/baja-bug/04.jpg", "img/baja-bug/01.jpg", "img/baja-bug/02.jpg"]
+  }
+]
