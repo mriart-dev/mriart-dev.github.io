@@ -82,7 +82,7 @@ footer{text-align:center;color:var(--sub);font-size:.85rem;padding:60px 16px 40p
 .timeline h3{font-size:1.1rem;font-weight:600;margin:2px 0}
 .timeline .lugar{color:var(--sub);font-size:.95rem}
 .timeline p{color:var(--sub);font-size:.95rem;margin-top:6px;max-width:680px}
-.sobre-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-top:28px}
+.sobre-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
 .sobre h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--sub);font-weight:500;margin:0 0 4px}
 .lista{list-style:none;font-size:.95rem;margin:8px 0 22px}
 .lista li{padding:3px 0}
