@@ -11,18 +11,19 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232f5d8a'/><text x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='%23ffffff' text-anchor='middle'>MR</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link id="font-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/estilos.css?v=202610132235">
+<link rel="stylesheet" href="css/estilos.css?v=202610132306">
 </head>
 <body>
 <header class="nav">
   <a href="#/" class="logo" data-nombre>Manuel Riart</a>
   <nav>
-    <a href="#/proyectos">Proyectos</a>
-    <a href="#/experiencia">Experiencia</a>
-    <a href="#/certificados">Certificados</a>
-    <a href="#/sobre-mi">Sobre mí</a>
-    <a href="#/curriculum">CV</a>
-    <a href="#/contacto">Contacto</a>
+    <a href="#/proyectos" data-t="proyectos">Proyectos</a>
+    <a href="#/experiencia" data-t="experiencia">Experiencia</a>
+    <a href="#/certificados" data-t="certificados">Certificados</a>
+    <a href="#/sobre-mi" data-t="sobre">Sobre mí</a>
+    <a href="#/curriculum" data-t="cv">CV</a>
+    <a href="#/contacto" data-t="contacto">Contacto</a>
+    <button id="idioma" class="idioma">EN</button>
     <button id="tema" aria-label="Cambiar modo claro/oscuro">◐</button>
   </nav>
 </header>
@@ -36,8 +37,8 @@
       <h1 data-nombre>Manuel Riart</h1>
       <p class="bajada" data-bajada></p>
       <div class="acciones">
-        <a class="btn" href="#/proyectos">Ver proyectos</a>
-        <a class="btn ghost" id="btn-cv" href="#" target="_blank" rel="noopener" hidden>Descargar CV</a>
+        <a class="btn" href="#/proyectos" data-t="verProyectos">Ver proyectos</a>
+        <a class="btn ghost" id="btn-cv" href="#" target="_blank" rel="noopener" hidden data-t="descargarCV">Descargar CV</a>
       </div>
     </div>
     <div class="scroll-hint">↓</div>
@@ -45,43 +46,43 @@
 
   <section id="proyectos" class="bloque">
     <div class="cabecera revelar">
-      <span class="num">01</span><h2>Proyectos</h2>
+      <span class="num">01</span><h2 data-t="proyectos">Proyectos</h2>
     </div>
     <div class="grilla" id="grilla"></div>
   </section>
 
   <section id="experiencia" class="bloque">
-    <div class="cabecera revelar"><span class="num">02</span><h2>Experiencia y formación</h2></div>
+    <div class="cabecera revelar"><span class="num">02</span><h2 data-t="expTitulo">Experiencia y formación</h2></div>
     <ol class="timeline" id="timeline"></ol>
   </section>
 
   <section id="certificados" class="bloque">
-    <div class="cabecera revelar"><span class="num">03</span><h2>Certificados y títulos</h2></div>
+    <div class="cabecera revelar"><span class="num">03</span><h2 data-t="certTitulo">Certificados y títulos</h2></div>
     <div class="certs" id="certs"></div>
   </section>
 
   <section id="sobre-mi" class="bloque">
-    <div class="cabecera revelar"><span class="num">04</span><h2>Sobre mí</h2></div>
+    <div class="cabecera revelar"><span class="num">04</span><h2 data-t="sobre">Sobre mí</h2></div>
     <div class="sobre revelar">
       <p data-bajada></p>
       <p class="uni" data-universidad></p>
       <div class="sobre-cols">
-        <div><h4>Software y competencias</h4><ul class="lista" id="habilidades"></ul></div>
-        <div><h4>Idiomas</h4><ul class="lista" id="idiomas"></ul></div>
+        <div><h4 data-t="software">Software y competencias</h4><ul class="lista" id="habilidades"></ul></div>
+        <div><h4 data-t="idiomas">Idiomas</h4><ul class="lista" id="idiomas"></ul></div>
       </div>
     </div>
   </section>
 
   <section id="curriculum" class="bloque">
-    <div class="cabecera revelar"><span class="num">05</span><h2>Currículum</h2></div>
+    <div class="cabecera revelar"><span class="num">05</span><h2 data-t="curriculum">Currículum</h2></div>
     <div class="lector">
-      <div class="lector-cab"><h3>CV — Manuel Riart</h3><a class="btn ghost" id="cv-descarga" href="cv.pdf" target="_blank" rel="noopener">Abrir / descargar PDF</a></div>
-      <div class="paginas" id="cv-paginas"><p class="cargando">Cargando CV…</p></div>
+      <div class="lector-cab"><h3>CV — Manuel Riart</h3><a class="btn ghost" id="cv-descarga" href="cv.pdf" target="_blank" rel="noopener" data-t="abrirPDF">Abrir / descargar PDF</a></div>
+      <div class="paginas" id="cv-paginas"><p class="cargando" data-t="cargandoCV">Cargando CV…</p></div>
     </div>
   </section>
 
   <section id="contacto" class="bloque">
-    <div class="cabecera revelar"><span class="num">06</span><h2>Contacto</h2></div>
+    <div class="cabecera revelar"><span class="num">06</span><h2 data-t="contacto">Contacto</h2></div>
     <div class="contacto revelar" id="links-contacto"></div>
   </section>
   <footer>© <span id="anio"></span> <span data-nombre>Manuel Riart</span></footer>
@@ -90,6 +91,6 @@
 <article id="detalle" hidden></article>
 <div id="visor" hidden><button class="cerrar" aria-label="Cerrar">×</button><button class="prev" aria-label="Anterior">‹</button><img alt="" hidden><button class="next" aria-label="Siguiente">›</button></div>
 
-<script src="js/app.js?v=202610132235"></script>
+<script src="js/app.js?v=202610132306"></script>
 </body>
 </html>

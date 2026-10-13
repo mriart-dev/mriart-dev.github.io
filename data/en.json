@@ -1,0 +1,63 @@
+{
+  "perfil": {
+    "titulo": "Advanced Mechanical Engineering Student",
+    "bajada": "Automotive track at ITBA. Experience in the engineering department of a Turismo Carretera racing team and in the design and manufacturing of a Formula SAE car. I combine CAD, finite element analysis, data acquisition and hands-on workshop skills.",
+    "universidad": "ITBA — Mechanical Engineering, Automotive track · Exchange at the University of the Basque Country (UPV/EHU)",
+    "idiomas": ["Spanish — native", "English — advanced (FCE B2)"],
+    "habilidades": ["CATIA V5", "Siemens NX", "SolidWorks", "Finite element analysis", "GT-SUITE", "OptimumKinematics", "MoTeC i2 Pro", "AiM", "MATLAB", "Python", "Arduino", "TIG / MIG welding", "Lathe and milling machine", "CNC (basic)", "Data acquisition"],
+    "experiencia": [
+      {"fecha": "Oct 2026", "titulo": "1st place — Ford Innovation Challenge III: AI", "lugar": "Ford Argentina", "detalle": "Winner of the Data-Driven Predictive Quality challenge."},
+      {"fecha": "Sep 2025 – Jan 2026", "titulo": "International academic exchange", "lugar": "University of the Basque Country (UPV/EHU), Spain", "detalle": ""},
+      {"fecha": "2023 – present", "titulo": "Design and manufacturing — Formula SAE ITBA", "lugar": "University racing team", "detalle": "Designed the transmission and the pedal box. Built a mockup to define the cockpit of the new car. Manufactured components using TIG and MIG welding, lathe and milling machine; basic CNC knowledge."},
+      {"fecha": "2023", "titulo": "Engineering Department Assistant — Turismo Carretera", "lugar": "Di Meglio Motorsport", "detalle": "CAD modeling and finite element analysis of components. Torsional stiffness testing of the chassis and the anti-roll bar. Cycling and maintenance of Baratec racing dampers. Installation of MoTeC data acquisition systems on Turismo Carretera and Turismo Nacional cars, and data analysis (MoTeC and AiM Solo) to help drivers improve their performance."},
+      {"fecha": "2021 – present", "titulo": "Mechanical Engineering, Automotive track", "lugar": "Instituto Tecnológico de Buenos Aires (ITBA)", "detalle": ""}
+    ],
+    "certificaciones": [
+      {"nombre": "1st place — Ford Innovation Challenge III: AI", "detalle": "Data-Driven Predictive Quality challenge · Ford Argentina · Oct 2026"},
+      {"nombre": "International academic exchange", "detalle": "University of the Basque Country (UPV/EHU) · Sep 2025 – Jan 2026"},
+      {"nombre": "First Certificate in English (FCE B2)", "detalle": "Cambridge Assessment English · 2019"},
+      {"nombre": "Excel: Fundamentals and tools (XLS101x)", "detalle": "Universitat Politècnica de València · edX"},
+      {"nombre": "High school diploma", "detalle": "Instituto Privado de la Paz, San Nicolás de los Arroyos"}
+    ]
+  },
+  "proyectos": {
+    "baja-bug": {
+      "titulo": "Baja Bug — Tubular chassis",
+      "resumen": "3D design of the tubular chassis of a two-seat off-road vehicle and integration of its main components.",
+      "descripcion": "CATIA V5 model of the tubular structure of an off-road buggy: roll cage, triangulated frame and mounting points. Seats, rear suspension with dampers, powertrain and wheels were integrated on the chassis to check clearances, ergonomics and assembly of the complete vehicle.",
+      "herramientas": ["CATIA V5", "Structural design", "Assemblies"],
+      "area": "CAD design"
+    },
+    "sobrealimentacion-vapor": {
+      "titulo": "Steam supercharging",
+      "resumen": "A system that boosts a 4-cylinder, 4-stroke engine using steam generated from the engine coolant.",
+      "descripcion": "Design of a forced-induction system for a four-cylinder, four-stroke engine that recovers heat from the cooling water: the coolant is turned into steam, and that steam drives the engine's supercharging.\n\nI modeled the complete system integrated into the engine in CATIA V5: water and steam circuits, intake ducts, the boosting system and the radiator, paying attention to the routing of every line and the space available around the engine.",
+      "herramientas": ["CATIA V5", "Internal combustion engines", "Thermodynamics", "Assemblies"],
+      "area": "Engines"
+    },
+    "dron-vtol": {
+      "titulo": "VTOL drone for agricultural spraying",
+      "resumen": "First prototype of a drone that takes off vertically and then flies horizontally like an airplane, designed for crop spraying.",
+      "descripcion": "Design of a VTOL (vertical take-off and landing) drone for agricultural spraying: it takes off vertically like a multirotor and then transitions to horizontal flight like an airplane, combining flexibility to operate in the field with the range of a fixed wing.\n\nThis first prototype defines the horizontal-flight configuration: wing, fuselage, tail boom, empennage and propulsion. The vertical take-off system is still under development.",
+      "herramientas": ["CATIA V5", "Aircraft design", "Surface modeling"],
+      "area": "Aircraft design",
+      "contexto": "First prototype — in development"
+    },
+    "prensa-carbono": {
+      "titulo": "Curing press for carbon fiber plates",
+      "resumen": "Thermal sizing of a heated press for 500 × 500 mm carbon/epoxy plates, validated with finite volume simulation.",
+      "descripcion": "Thermal design of a press to cure carbon/epoxy composite plates (HexPly M79) of 500 × 500 mm and 20 to 100 mm thick, with the requirement of keeping temperature uniformity within 5 °C throughout the whole cure.\n\nI calculated the required power with global energy balances, selected silicone heating blankets and thermal insulation, and developed two transient finite volume (FVM) models: an in-plane model to compare four heater layouts and a through-thickness model to verify that the core of the plate reaches process temperature, including the resin exotherm.\n\nThe multi-zone center–edge layout was the only one that met the criterion: it compensates perimeter losses without increasing total power. I also defined the control strategy (feed-forward + proportional) and the complete thermal cycle.",
+      "herramientas": ["MATLAB", "Finite volume method (FVM)", "Heat transfer", "Composite materials", "Thermal control"],
+      "area": "Thermal analysis",
+      "contexto": "Final project — Thermofluids II, ITBA"
+    },
+    "barra-estabilizadora": {
+      "titulo": "Anti-roll bar — Turismo Carretera",
+      "resumen": "Design of an anti-roll bar for a Turismo Carretera race car, verified with finite element analysis and validated with hand calculations.",
+      "descripcion": "Design of the anti-roll bar of a Turismo Carretera race car: geometry of the torsion bar, arms and supports.\n\nI analyzed its behavior with the finite element method (Von Mises stresses and deformations under service loads) and identified the critical areas at the joint between the bar and the arms.\n\nI validated the simulation results with hand calculations of torsion and bending, to verify that the numerical model was correct before making design decisions.",
+      "herramientas": ["CATIA V5", "Finite element analysis", "Analytical calculation", "Vehicle dynamics"],
+      "area": "Structural analysis",
+      "contexto": "Motorsport — Turismo Carretera"
+    }
+  }
+}

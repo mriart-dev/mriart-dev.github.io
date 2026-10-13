@@ -54,6 +54,7 @@ content:
           - { name: titulo, label: Puesto o título, type: string }
           - { name: lugar, label: "Empresa / institución", type: string }
           - { name: detalle, label: Detalle, type: text }
+          - { name: fotos, label: Fotos, type: image, list: true }
   - name: estetica
     label: Estética
     type: file
@@ -66,3 +67,4 @@ content:
       - { name: tema_inicial, label: Tema inicial, type: select, options: { values: [oscuro, claro] } }
       - { name: animacion_portada, label: Animación de portada, type: select, options: { values: [malla, grilla, ninguna] } }
       - { name: intensidad_animacion, label: "Intensidad (0 a 2)", type: number }
+      - { name: goatcounter, label: "Código de GoatCounter (contador de visitas)", type: string }

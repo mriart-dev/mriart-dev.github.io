@@ -2,9 +2,50 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let proyectos = [], perfil = {}, estetica = {};
 
+// Idioma: ?lang=en en la URL o la última elección del visitante
+let idioma = new URLSearchParams(location.search).get('lang');
+try { idioma = idioma || localStorage.getItem('idioma'); } catch {}
+idioma = idioma === 'en' ? 'en' : 'es';
+document.documentElement.lang = idioma;
+const TEXTOS = {
+  es: {proyectos: 'Proyectos', experiencia: 'Experiencia', certificados: 'Certificados', sobre: 'Sobre mí', cv: 'CV', contacto: 'Contacto',
+    verProyectos: 'Ver proyectos', descargarCV: 'Descargar CV', expTitulo: 'Experiencia y formación', certTitulo: 'Certificados y títulos',
+    software: 'Software y competencias', idiomas: 'Idiomas', curriculum: 'Currículum', abrirPDF: 'Abrir / descargar PDF', cargandoCV: 'Cargando CV…',
+    volver: '← Volver a proyectos', area: 'Área', herramientas: 'Herramientas', verInforme: 'Ver informe completo (PDF)', informe: 'Informe completo',
+    cargandoInforme: 'Cargando informe…', cargando: 'Cargando…', descargar: 'Descargar', ver: 'Ver', pronto: 'Próximamente.', imagen: 'imagen',
+    asunto: 'Contacto desde tu portfolio', cvPDF: 'Descargar CV (PDF)', pdfError: 'No se pudo mostrar el documento aquí.', pdfAbrir: 'Abrilo en una pestaña nueva',
+    pagina: 'Página', tituloPag: 'Estudiante avanzado de Ingeniería Mecánica', tema: 'Cambiar modo claro/oscuro'},
+  en: {proyectos: 'Projects', experiencia: 'Experience', certificados: 'Certificates', sobre: 'About', cv: 'CV', contacto: 'Contact',
+    verProyectos: 'View projects', descargarCV: 'Download CV', expTitulo: 'Experience and education', certTitulo: 'Certificates and diplomas',
+    software: 'Software and skills', idiomas: 'Languages', curriculum: 'Résumé', abrirPDF: 'Open / download PDF', cargandoCV: 'Loading CV…',
+    volver: '← Back to projects', area: 'Field', herramientas: 'Tools', verInforme: 'View full report (PDF)', informe: 'Full report',
+    cargandoInforme: 'Loading report…', cargando: 'Loading…', descargar: 'Download', ver: 'View', pronto: 'Coming soon.', imagen: 'image',
+    asunto: 'Contact from your portfolio', cvPDF: 'Download CV (PDF)', pdfError: 'The document could not be displayed here.', pdfAbrir: 'Open it in a new tab',
+    pagina: 'Page', tituloPag: 'Advanced Mechanical Engineering Student', tema: 'Toggle light/dark mode'}
+};
+const t = k => TEXTOS[idioma][k] ?? TEXTOS.es[k] ?? k;
+
+// Aplica la traducción (data/en.json) sobre los datos en español, campo por campo
+function traducir(base, tr) {
+  if (Array.isArray(base) && Array.isArray(tr) && base.length && typeof base[0] === 'object') return base.map((b, i) => tr[i] ? traducir(b, tr[i]) : b);
+  if (base && typeof base === 'object' && !Array.isArray(base) && tr && typeof tr === 'object') {
+    const r = {...base};
+    for (const k in tr) r[k] = k in base ? traducir(base[k], tr[k]) : tr[k];
+    return r;
+  }
+  return tr ?? base;
+}
+
 async function cargar() {
   const get = f => fetch(`data/${f}.json`, {cache: 'no-cache'}).then(r => r.json());
   [proyectos, perfil, estetica] = await Promise.all([get('proyectos'), get('perfil'), get('estetica')]);
+  if (idioma === 'en') {
+    const en = await get('en').catch(() => ({}));
+    perfil = traducir(perfil, en.perfil || {});
+    proyectos = proyectos.map(p => traducir(p, (en.proyectos || {})[p.id] || {}));
+  }
+  pintarInterfaz();
+  contarVisitas();
   aplicarEstetica();
   pintarPerfil();
   pintarCertificados();
@@ -13,6 +54,29 @@ async function cargar() {
   ruta();
   animarPortada();
   requestAnimationFrame(() => document.body.classList.add('listo'));
+}
+
+function pintarInterfaz() {
+  document.querySelectorAll('[data-t]').forEach(e => e.textContent = t(e.dataset.t));
+  $('#tema').setAttribute('aria-label', t('tema'));
+  const b = $('#idioma');
+  b.textContent = idioma === 'en' ? 'ES' : 'EN';
+  b.setAttribute('aria-label', idioma === 'en' ? 'Ver en español' : 'View in English');
+  b.onclick = () => {
+    try { localStorage.setItem('idioma', idioma === 'en' ? 'es' : 'en'); } catch {}
+    const u = new URL(location.href);
+    u.searchParams.set('lang', idioma === 'en' ? 'es' : 'en');
+    location.href = u.toString();
+  };
+}
+
+// Contador de visitas privado (GoatCounter); se activa al completar "goatcounter" en estetica.json
+function contarVisitas() {
+  if (!estetica.goatcounter || /^(localhost|127\.)/.test(location.hostname)) return;
+  const s = document.createElement('script');
+  s.async = true; s.src = 'https://gc.zgo.at/count.js';
+  s.dataset.goatcounter = `https://${estetica.goatcounter}.goatcounter.com/count`;
+  document.body.appendChild(s);
 }
 
 function aplicarEstetica() {
@@ -43,17 +107,19 @@ function pintarPerfil() {
   document.querySelectorAll('[data-titulo]').forEach(e => e.textContent = perfil.titulo);
   document.querySelectorAll('[data-bajada]').forEach(e => e.textContent = perfil.bajada);
   document.querySelectorAll('[data-universidad]').forEach(e => e.textContent = perfil.universidad);
-  $('#timeline').innerHTML = (perfil.experiencia || []).map(e => `
+  $('#timeline').innerHTML = (perfil.experiencia || []).map((e, i) => `
     <li class="revelar"><span class="fecha">${esc(e.fecha)}</span><h3>${esc(e.titulo)}</h3>
-    <div class="lugar">${esc(e.lugar)}</div>${e.detalle ? `<p>${esc(e.detalle)}</p>` : ''}</li>`).join('');
+    <div class="lugar">${esc(e.lugar)}</div>${e.detalle ? `<p>${esc(e.detalle)}</p>` : ''}
+    ${(e.fotos || []).length ? `<div class="exp-fotos">${e.fotos.map((f, k) => `<img src="${esc(f)}" alt="${esc(e.titulo)}" data-exp="${i}" data-k="${k}" loading="lazy">`).join('')}</div>` : ''}</li>`).join('');
+  $('#timeline').querySelectorAll('.exp-fotos img').forEach(im => im.onclick = () => abrirVisor(perfil.experiencia[+im.dataset.exp].fotos, +im.dataset.k));
   $('#idiomas').innerHTML = (perfil.idiomas || []).map(i => `<li>${esc(i)}</li>`).join('');
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
-  if (perfil.email) links.push(`<a class="btn" data-mail href="mailto:${esc(perfil.email)}?subject=${encodeURIComponent('Contacto desde tu portfolio')}">✉ ${esc(perfil.email)}</a>`);
+  if (perfil.email) links.push(`<a class="btn" data-mail href="mailto:${esc(perfil.email)}?subject=${encodeURIComponent(t('asunto'))}">✉ ${esc(perfil.email)}</a>`);
   if (perfil.linkedin) links.push(`<a class="btn ghost" href="${esc(perfil.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
   if (perfil.telefono) links.push(`<a class="btn ghost" href="https://wa.me/${perfil.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">WhatsApp ${esc(perfil.telefono)}</a>`);
-  $('#links-contacto').innerHTML = links.join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  $('#links-contacto').innerHTML = links.join('') || `<p style="color:var(--sub)">${t('pronto')}</p>`;
   // Abre un mail nuevo a la dirección. Si en la compu no hay programa de correo configurado
   // (la página no pierde el foco), abre la redacción de Gmail en una pestaña nueva.
   document.querySelectorAll('[data-mail]').forEach(a => a.addEventListener('click', () => {
@@ -63,14 +129,14 @@ function pintarPerfil() {
     addEventListener('blur', marcar, {once: true});
     setTimeout(() => {
       removeEventListener('blur', marcar);
-      if (!salio && document.hasFocus()) open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(perfil.email)}&su=${encodeURIComponent('Contacto desde tu portfolio')}`, '_blank', 'noopener');
+      if (!salio && document.hasFocus()) open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(perfil.email)}&su=${encodeURIComponent(t('asunto'))}`, '_blank', 'noopener');
     }, 900);
   }));
   // El CV aparece solo si el archivo existe en el repositorio
   if (perfil.cv) fetch(perfil.cv, {method: 'HEAD'}).then(r => {
     if (!r.ok) return;
     $('#btn-cv').href = perfil.cv; $('#btn-cv').hidden = false;
-    $('#links-contacto').insertAdjacentHTML('beforeend', `<a class="btn ghost" href="${esc(perfil.cv)}" target="_blank" rel="noopener">Descargar CV (PDF)</a>`);
+    $('#links-contacto').insertAdjacentHTML('beforeend', `<a class="btn ghost" href="${esc(perfil.cv)}" target="_blank" rel="noopener">${t('cvPDF')}</a>`);
   }).catch(() => {});
   $('#anio').textContent = new Date().getFullYear();
 }
@@ -89,7 +155,7 @@ async function pintarCertificados() {
   const esPdf = n => /\.pdf$/i.test(n);
   const tarjeta = (titulo, detalle, f) => f
     ? `<button class="cert con-doc revelar" data-doc="certificados/${encodeURIComponent(f.name)}" data-titulo="${esc(titulo)}">
-        <div class="thumb">${esPdf(f.name) ? `<canvas data-pdf="certificados/${encodeURIComponent(f.name)}"></canvas>` : `<img src="certificados/${encodeURIComponent(f.name)}" alt="" loading="lazy">`}<span class="ver">Ver</span></div>
+        <div class="thumb">${esPdf(f.name) ? `<canvas data-pdf="certificados/${encodeURIComponent(f.name)}"></canvas>` : `<img src="certificados/${encodeURIComponent(f.name)}" alt="" loading="lazy">`}<span class="ver">${t('ver')}</span></div>
         <div class="txt"><b>${esc(titulo)}</b><span>${esc(detalle || '')}</span></div>
       </button>`
     : `<div class="cert revelar"><div class="ico">✓</div><div><b>${esc(titulo)}</b><span>${esc(detalle || '')}</span></div></div>`;
@@ -105,7 +171,7 @@ async function pintarCertificados() {
   const sueltos = archivos.filter(f => !usados.has(f.name)).map(f => tarjeta(nombre(f.name), '', f));
   // Primero los que tienen documento, después el resto
   const todos = [...delPerfil, ...sueltos].sort((x, y) => y.startsWith('<button') - x.startsWith('<button'));
-  $('#certs').innerHTML = todos.join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  $('#certs').innerHTML = todos.join('') || `<p style="color:var(--sub)">${t('pronto')}</p>`;
   $('#certs').querySelectorAll('[data-doc]').forEach(b => b.onclick = () => abrirDoc(b.dataset.doc, b.dataset.titulo));
   $('#certs').querySelectorAll('canvas[data-pdf]').forEach(miniaturaPDF);
   observar();
@@ -133,27 +199,27 @@ function ruta() {
     if (p) {
       ini.hidden = true; det.hidden = false;
       det.innerHTML = `
-        <a class="volver" href="#/proyectos">← Volver a proyectos</a>
+        <a class="volver" href="#/proyectos">${t('volver')}</a>
         <span class="meta">${esc(p.area)}</span>
         <h1>${esc(p.titulo)}</h1>
         ${p.contexto ? `<p class="contexto">${esc(p.contexto)}</p>` : ''}
         <div class="det-grid">
           <div>${String(p.descripcion || '').split(/\n\s*\n/).map(t => `<p>${esc(t)}</p>`).join('')}</div>
           <dl class="ficha">
-            <dt>Área</dt><dd>${esc(p.area)}</dd>
+            <dt>${t('area')}</dt><dd>${esc(p.area)}</dd>
             
-            <dt>Herramientas</dt><dd><ul class="chips" style="margin-top:6px">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul></dd>
-            ${p.documento ? `<a class="btn" href="${esc(p.documento)}" target="_blank" rel="noopener">Ver informe completo (PDF)</a>` : ''}
+            <dt>${t('herramientas')}</dt><dd><ul class="chips" style="margin-top:6px">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul></dd>
+            ${p.documento ? `<a class="btn" href="${esc(p.documento)}" target="_blank" rel="noopener">${t('verInforme')}</a>` : ''}
           </dl>
         </div>
         ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
-        <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — imagen ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
+        <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — ${t('imagen')} ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
       if (p.documento && p.mostrar_documento) {
         det.insertAdjacentHTML('beforeend', `
           <section class="lector">
-            <div class="lector-cab"><h3>Informe completo</h3>
-              <a class="btn ghost" href="${esc(p.documento)}" target="_blank" rel="noopener">Abrir / descargar PDF</a></div>
-            <div class="paginas" id="paginas"><p class="cargando">Cargando informe…</p></div>
+            <div class="lector-cab"><h3>${t('informe')}</h3>
+              <a class="btn ghost" href="${esc(p.documento)}" target="_blank" rel="noopener">${t('abrirPDF')}</a></div>
+            <div class="paginas" id="paginas"><p class="cargando">${t('cargandoInforme')}</p></div>
           </section>`);
         mostrarPDF(p.documento, $('#paginas'));
       }
@@ -164,7 +230,7 @@ function ruta() {
     }
   }
   det.hidden = true; ini.hidden = false;
-  document.title = `${perfil.nombre} — Ingeniería Mecánica`;
+  document.title = `${perfil.nombre} — ${t('tituloPag')}`;
   const sec = document.getElementById(h);
   if (sec) sec.scrollIntoView({behavior: 'smooth'});
 }
@@ -200,11 +266,11 @@ async function mostrarPDF(url, cont) {
     for (let n = 1; n <= pdf.numPages; n++) {
       const c = document.createElement('canvas');
       c.dataset.n = n; c.width = vp1.width; c.height = vp1.height;
-      c.setAttribute('aria-label', `Página ${n} del informe`);
+      c.setAttribute('aria-label', `${t('pagina')} ${n}`);
       cont.appendChild(c); io2.observe(c);
     }
   } catch {
-    cont.innerHTML = `<p class="cargando">No se pudo mostrar el informe aquí. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--acento)">Abrilo en una pestaña nueva</a>.</p>`;
+    cont.innerHTML = `<p class="cargando">${t('pdfError')} <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--acento)">${t('pdfAbrir')}</a>.</p>`;
   }
 }
 
@@ -224,7 +290,7 @@ function abrirDoc(url, titulo) {
   if (!v) {
     v = document.createElement('div'); v.id = 'docvisor';
     v.innerHTML = `<div class="dv-caja" role="dialog" aria-modal="true">
-      <div class="dv-cab"><b></b><div><a class="btn ghost" target="_blank" rel="noopener">Descargar</a><button class="dv-x" aria-label="Cerrar">×</button></div></div>
+      <div class="dv-cab"><b></b><div><a class="btn ghost" target="_blank" rel="noopener">${t('descargar')}</a><button class="dv-x" aria-label="Cerrar">×</button></div></div>
       <div class="dv-cuerpo paginas"></div></div>`;
     document.body.appendChild(v);
     const cerrar = () => { v.classList.remove('abierto'); document.body.style.overflow = ''; };
@@ -237,7 +303,7 @@ function abrirDoc(url, titulo) {
   const cuerpo = v.querySelector('.dv-cuerpo');
   document.body.style.overflow = 'hidden';
   v.classList.add('abierto');
-  if (/\.pdf$/i.test(url)) { cuerpo.innerHTML = '<p class="cargando">Cargando…</p>'; mostrarPDF(url, cuerpo); }
+  if (/\.pdf$/i.test(url)) { cuerpo.innerHTML = `<p class="cargando">${t('cargando')}</p>`; mostrarPDF(url, cuerpo); }
   else cuerpo.innerHTML = `<img src="${url}" alt="${esc(titulo)}">`;
 }
 
