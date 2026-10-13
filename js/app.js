@@ -242,6 +242,11 @@ function ruta() {
   if (sec) sec.scrollIntoView({behavior: 'smooth'});
 }
 addEventListener('hashchange', ruta);
+// Cuenta en GoatCounter cada proyecto abierto (la página cambia de sección sin recargar)
+addEventListener('hashchange', () => {
+  const h = location.hash.replace(/^#\/?/, '');
+  if (h.startsWith('proyecto/') && window.goatcounter?.count) goatcounter.count({path: '/' + h, title: document.title});
+});
 
 // Lector de PDF dentro de la página (PDF.js funciona también en celulares)
 const PDFJS = 'js/vendor/'; // PDF.js 3.11.174
