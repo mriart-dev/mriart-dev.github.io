@@ -27,6 +27,8 @@ content:
       - { name: bajada, label: Presentación, type: text }
       - { name: universidad, label: Universidad, type: string }
       - { name: email, label: Email, type: string }
+      - { name: telefono, label: "Teléfono (con código de país)", type: string }
+      - { name: foto, label: Foto de perfil, type: image }
       - { name: linkedin, label: "LinkedIn (URL)", type: string }
       - { name: cv, label: "CV en PDF", type: file }
       - { name: habilidades, label: Habilidades, type: string, list: true }

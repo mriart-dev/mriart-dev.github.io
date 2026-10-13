@@ -41,12 +41,18 @@ function pintarPerfil() {
   document.querySelectorAll('[data-bajada]').forEach(e => e.textContent = perfil.bajada);
   document.querySelectorAll('[data-universidad]').forEach(e => e.textContent = perfil.universidad);
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
-  if (perfil.cv) { $('#btn-cv').href = perfil.cv; $('#btn-cv').hidden = false; }
+  document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
   if (perfil.email) links.push(`<a class="btn" href="mailto:${esc(perfil.email)}">${esc(perfil.email)}</a>`);
   if (perfil.linkedin) links.push(`<a class="btn ghost" href="${esc(perfil.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
-  if (perfil.cv) links.push(`<a class="btn ghost" href="${esc(perfil.cv)}" target="_blank" rel="noopener">CV (PDF)</a>`);
+  if (perfil.telefono) links.push(`<a class="btn ghost" href="https://wa.me/${perfil.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">WhatsApp ${esc(perfil.telefono)}</a>`);
   $('#links-contacto').innerHTML = links.join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  // El CV aparece solo si el archivo existe en el repositorio
+  if (perfil.cv) fetch(perfil.cv, {method: 'HEAD'}).then(r => {
+    if (!r.ok) return;
+    $('#btn-cv').href = perfil.cv; $('#btn-cv').hidden = false;
+    $('#links-contacto').insertAdjacentHTML('beforeend', `<a class="btn ghost" href="${esc(perfil.cv)}" target="_blank" rel="noopener">Descargar CV (PDF)</a>`);
+  }).catch(() => {});
   $('#anio').textContent = new Date().getFullYear();
 }
 

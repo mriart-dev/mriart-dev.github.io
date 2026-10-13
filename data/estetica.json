@@ -1,9 +1,9 @@
 {
-  "acento": "#4f7cac",
+  "acento": "#2f5d8a",
   "fondo_oscuro": "#0e1116",
   "fondo_claro": "#f5f5f2",
   "tipografia": "Inter",
-  "tema_inicial": "oscuro",
+  "tema_inicial": "claro",
   "animacion_portada": "estructura",
   "intensidad_animacion": 1
 }

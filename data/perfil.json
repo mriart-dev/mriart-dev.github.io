@@ -2,9 +2,17 @@
   "nombre": "Manuel Riart",
   "titulo": "Estudiante de Ingeniería Mecánica",
   "bajada": "Diseño mecánico, modelado CAD y desarrollo de estructuras. Me interesa transformar ideas en piezas y sistemas que funcionen.",
-  "universidad": "Universidad — completar",
-  "email": "",
-  "linkedin": "",
-  "cv": "",
-  "habilidades": ["CATIA V5", "Modelado 3D / CAD", "Diseño de estructuras tubulares", "Ensambles y mecanismos", "Interpretación de planos"]
+  "universidad": "ITBA — Instituto Tecnológico de Buenos Aires",
+  "email": "mriart@itba.edu.ar",
+  "linkedin": "https://www.linkedin.com/in/manuel-riart-40a1b0241/",
+  "cv": "cv.pdf",
+  "habilidades": [
+    "CATIA V5",
+    "Modelado 3D / CAD",
+    "Diseño de estructuras tubulares",
+    "Ensambles y mecanismos",
+    "Interpretación de planos"
+  ],
+  "telefono": "+54 9 3460 69 7836",
+  "foto": "https://github.com/mriart-dev.png"
 }
