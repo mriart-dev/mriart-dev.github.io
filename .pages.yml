@@ -14,11 +14,11 @@ content:
       - { name: descripcion, label: Descripción, type: text }
       - { name: herramientas, label: Herramientas, type: string, list: true }
       - { name: area, label: Área, type: string }
-      - { name: anio, label: Año, type: string }
       - { name: contexto, label: "Contexto (materia, empresa, equipo)", type: string }
       - { name: documento, label: "Informe PDF (opcional)", type: file }
       - { name: mostrar_documento, label: "Mostrar el PDF dentro de la página", type: boolean }
       - { name: portada, label: Imagen de portada, type: image }
+      - { name: portada_escala, label: "Tamaño de la portada (1 = normal, 0.8 = más chica)", type: number }
       - { name: imagenes, label: Galería, type: image, list: true }
   - name: perfil
     label: Perfil

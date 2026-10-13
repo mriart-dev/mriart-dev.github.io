@@ -38,7 +38,8 @@ h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;letter-spacing:-.02em}
 .tarjeta:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--acento) 50%,transparent);box-shadow:0 20px 40px #0000002e}
 .tarjeta .img{aspect-ratio:16/10;overflow:hidden}
 .tarjeta img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.tarjeta:hover img{transform:scale(1.05)}
+.tarjeta img{transform:scale(var(--escala,1))}
+.tarjeta:hover img{transform:scale(calc(var(--escala,1) * 1.05))}
 .tarjeta .info{padding:20px 22px 24px}
 .meta{font-size:.78rem;color:var(--acento);letter-spacing:.1em;text-transform:uppercase}
 .tarjeta h3{font-size:1.2rem;margin:6px 0 8px;font-weight:600}

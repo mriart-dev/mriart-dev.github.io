@@ -8,7 +8,7 @@ async function cargar() {
   aplicarEstetica();
   pintarPerfil();
   pintarCertificados();
-  pintarProyectos('Todos');
+  pintarProyectos();
   ruta();
   animarPortada();
   requestAnimationFrame(() => document.body.classList.add('listo'));
@@ -110,15 +110,12 @@ async function pintarCertificados() {
   observar();
 }
 
-function pintarProyectos(filtro) {
-  const areas = ['Todos', ...new Set(proyectos.map(p => p.area).filter(Boolean))];
-  $('#filtros').innerHTML = areas.length > 2 ? areas.map(a => `<button class="${a === filtro ? 'activo' : ''}">${esc(a)}</button>`).join('') : '';
-  $('#filtros').querySelectorAll('button').forEach(b => b.onclick = () => pintarProyectos(b.textContent));
-  $('#grilla').innerHTML = proyectos.filter(p => filtro === 'Todos' || p.area === filtro).map(p => `
+function pintarProyectos() {
+  $('#grilla').innerHTML = proyectos.map(p => `
     <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}">
-      <div class="img" style="--fondo:url('${esc(p.portada || p.imagenes?.[0])}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"></div>
+      <div class="img" style="--fondo:url('${esc(p.portada || p.imagenes?.[0])}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"${p.portada_escala ? ` style="--escala:${+p.portada_escala}"` : ''}></div>
       <div class="info">
-        <span class="meta">${esc([p.area, p.anio].filter(Boolean).join(' · '))}</span>
+        <span class="meta">${esc(p.area)}</span>
         <h3>${esc(p.titulo)}</h3>
         <p>${esc(p.resumen)}</p>
         <ul class="chips">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
@@ -136,14 +133,14 @@ function ruta() {
       ini.hidden = true; det.hidden = false;
       det.innerHTML = `
         <a class="volver" href="#/proyectos">← Volver a proyectos</a>
-        <span class="meta">${esc([p.area, p.anio].filter(Boolean).join(' · '))}</span>
+        <span class="meta">${esc(p.area)}</span>
         <h1>${esc(p.titulo)}</h1>
         ${p.contexto ? `<p class="contexto">${esc(p.contexto)}</p>` : ''}
         <div class="det-grid">
           <div>${String(p.descripcion || '').split(/\n\s*\n/).map(t => `<p>${esc(t)}</p>`).join('')}</div>
           <dl class="ficha">
             <dt>Área</dt><dd>${esc(p.area)}</dd>
-            ${p.anio ? `<dt>Año</dt><dd>${esc(p.anio)}</dd>` : ''}
+            
             <dt>Herramientas</dt><dd><ul class="chips" style="margin-top:6px">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul></dd>
             ${p.documento ? `<a class="btn" href="${esc(p.documento)}" target="_blank" rel="noopener">Ver informe completo (PDF)</a>` : ''}
           </dl>

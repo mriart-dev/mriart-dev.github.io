@@ -30,7 +30,6 @@
       "Control térmico"
     ],
     "area": "Análisis térmico",
-    "anio": "2026",
     "contexto": "Trabajo final — Termofluidos II, ITBA",
     "documento": "docs/prensa-placas-carbono.pdf",
     "portada": "img/prensa-carbono/portada.jpg",
@@ -51,7 +50,6 @@
       "Dinámica vehicular"
     ],
     "area": "Análisis estructural",
-    "anio": "",
     "contexto": "Automovilismo — Turismo Carretera",
     "portada": "img/barra-estabilizadora/portada.jpg",
     "imagenes": [
@@ -71,7 +69,6 @@
       "Ensambles"
     ],
     "area": "Motores",
-    "anio": "",
     "contexto": "",
     "portada": "img/sobrealimentacion-vapor/01.jpg",
     "imagenes": [
@@ -92,12 +89,12 @@
       "Modelado de superficies"
     ],
     "area": "Diseño aeronáutico",
-    "anio": "",
     "contexto": "Primer prototipo — en desarrollo",
     "portada": "img/dron-vtol/01.jpg",
     "imagenes": [
       "img/dron-vtol/01.jpg"
-    ]
+    ],
+    "portada_escala": 0.8
   },
   {
     "id": "baja-bug",
@@ -110,7 +107,6 @@
       "Ensambles"
     ],
     "area": "Diseño CAD",
-    "anio": "2026",
     "portada": "img/baja-bug/05.jpg",
     "imagenes": [
       "img/baja-bug/05.jpg",
