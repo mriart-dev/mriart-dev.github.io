@@ -49,10 +49,18 @@ function pintarPerfil() {
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
-  if (perfil.email) links.push(`<a class="btn" href="mailto:${esc(perfil.email)}">${esc(perfil.email)}</a>`);
+  if (perfil.email) {
+    const asunto = encodeURIComponent('Contacto desde tu portfolio');
+    links.push(`<a class="btn" data-mail href="mailto:${esc(perfil.email)}?subject=${asunto}">✉ ${esc(perfil.email)}</a>`);
+    links.push(`<a class="btn ghost" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(perfil.email)}&su=${asunto}" target="_blank" rel="noopener">Escribir por Gmail</a>`);
+  }
   if (perfil.linkedin) links.push(`<a class="btn ghost" href="${esc(perfil.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
   if (perfil.telefono) links.push(`<a class="btn ghost" href="https://wa.me/${perfil.telefono.replace(/\D/g, '')}" target="_blank" rel="noopener">WhatsApp ${esc(perfil.telefono)}</a>`);
   $('#links-contacto').innerHTML = links.join('') || '<p style="color:var(--sub)">Próximamente.</p>';
+  // Además de abrir el correo, copia la dirección por si el equipo no tiene app de mail configurada
+  document.querySelectorAll('[data-mail]').forEach(a => a.addEventListener('click', () => {
+    navigator.clipboard?.writeText(perfil.email).then(() => aviso('Mail copiado: ' + perfil.email)).catch(() => {});
+  }));
   // El CV aparece solo si el archivo existe en el repositorio
   if (perfil.cv) fetch(perfil.cv, {method: 'HEAD'}).then(r => {
     if (!r.ok) return;
@@ -180,6 +188,13 @@ async function mostrarPDF(url, cont) {
   } catch {
     cont.innerHTML = `<p class="cargando">No se pudo mostrar el informe aquí. <a href="${esc(url)}" target="_blank" rel="noopener" style="color:var(--acento)">Abrilo en una pestaña nueva</a>.</p>`;
   }
+}
+
+function aviso(texto) {
+  let t = $('#aviso');
+  if (!t) { t = document.createElement('div'); t.id = 'aviso'; document.body.appendChild(t); }
+  t.textContent = texto; t.classList.add('ver');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('ver'), 2600);
 }
 
 let galeria = [], idx = 0;
