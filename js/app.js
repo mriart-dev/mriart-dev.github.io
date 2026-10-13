@@ -227,7 +227,9 @@ function ruta() {
       det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
       // Cada foto y video ocupa un ancho proporcional a su forma real (filas justificadas)
       const ajustar = (el, w, h) => { if (w && h) { el.style.flex = `${w / h} 1 ${Math.round(260 * w / h)}px`; } };
-      det.querySelectorAll('.galeria img').forEach(im => im.complete ? ajustar(im, im.naturalWidth, im.naturalHeight) : im.addEventListener('load', () => ajustar(im, im.naturalWidth, im.naturalHeight)));
+      const gal = det.querySelector('.galeria');
+      const imgs = [...gal.querySelectorAll('img')];
+      Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => justificar(gal));
       det.querySelectorAll('.videos video').forEach(v => v.addEventListener('loadedmetadata', () => { const f = v.closest('figure'); ajustar(f, v.videoWidth, v.videoHeight); f.style.maxWidth = `${Math.round(520 * v.videoWidth / v.videoHeight)}px`; }));
       const ioVid = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .3});
       det.querySelectorAll('.videos video').forEach(v => { v.muted = true; ioVid.observe(v); });
@@ -318,6 +320,42 @@ function abrirDoc(url, titulo) {
   if (/\.pdf$/i.test(url)) { cuerpo.innerHTML = `<p class="cargando">${t('cargando')}</p>`; mostrarPDF(url, cuerpo); }
   else cuerpo.innerHTML = `<img src="${url}" alt="${esc(titulo)}">`;
 }
+
+// Galería justificada: filas de igual altura que llenan el ancho; cada foto mantiene su proporción
+function justificar(gal) {
+  if (!gal || !gal.isConnected) return;
+  const imgs = [...gal.querySelectorAll('img')].filter(im => im.naturalWidth);
+  const W = gal.clientWidth, gap = 12, objetivo = W < 600 ? 170 : 280;
+  const r = im => im.naturalWidth / im.naturalHeight;
+  const alto = fila => (W - gap * (fila.length - 1)) / fila.reduce((a, im) => a + r(im), 0);
+  // Arma filas que se acercan a la altura objetivo
+  const filas = [];
+  let fila = [];
+  imgs.forEach(im => { fila.push(im); if (alto(fila) <= objetivo) { filas.push(fila); fila = []; } });
+  // Si sobran fotos al final, se suman a la fila anterior (si no queda demasiado baja) para no dejar una fila incompleta
+  if (fila.length) {
+    const prev = filas.pop() || [];
+    const todas = [...prev, ...fila];
+    // Prueba todas las formas de repartir las últimas fotos en una o dos filas completas y elige la más pareja
+    let mejor = [todas], peor = Math.abs(alto(todas) - objetivo);
+    for (let k = 1; k < todas.length; k++) {
+      const a = todas.slice(0, k), b = todas.slice(k);
+      const d = Math.max(Math.abs(alto(a) - objetivo), Math.abs(alto(b) - objetivo));
+      if (d < peor) { peor = d; mejor = [a, b]; }
+    }
+    // Si ni así se logra una fila razonable, la última queda a la altura objetivo sin estirarse
+    if (alto(mejor[mejor.length - 1]) > objetivo * 1.6) { mejor = prev.length ? [prev, fila] : [fila]; fila.ultima = true; }
+    filas.push(...mejor);
+  }
+  gal.style.display = 'block';
+  filas.forEach((f, n) => {
+    const h = f.ultima ? Math.min(alto(f), filas.length === 1 && f.length === 1 ? objetivo * 2.2 : objetivo) : alto(f);
+    f.forEach((im, k) => {
+      im.style.cssText = `width:${Math.floor(r(im) * h)}px;height:${Math.floor(h)}px;margin:0 ${k < f.length - 1 ? gap : 0}px ${gap}px 0;display:inline-block;vertical-align:top;object-fit:cover`;
+    });
+  });
+}
+addEventListener('resize', () => justificar(document.querySelector('#detalle:not([hidden]) .galeria')));
 
 function aviso(texto) {
   let t = $('#aviso');
