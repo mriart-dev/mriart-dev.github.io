@@ -15,6 +15,8 @@ content:
       - { name: herramientas, label: Herramientas, type: string, list: true }
       - { name: area, label: Área, type: string }
       - { name: anio, label: Año, type: string }
+      - { name: contexto, label: "Contexto (materia, empresa, equipo)", type: string }
+      - { name: documento, label: "Informe PDF (opcional)", type: file }
       - { name: portada, label: Imagen de portada, type: image }
       - { name: imagenes, label: Galería, type: image, list: true }
   - name: perfil
@@ -32,6 +34,17 @@ content:
       - { name: linkedin, label: "LinkedIn (URL)", type: string }
       - { name: cv, label: "CV en PDF", type: file }
       - { name: habilidades, label: Habilidades, type: string, list: true }
+      - { name: idiomas, label: Idiomas, type: string, list: true }
+      - { name: certificaciones, label: Certificaciones, type: string, list: true }
+      - name: experiencia
+        label: Experiencia y formación
+        type: object
+        list: true
+        fields:
+          - { name: fecha, label: Fecha, type: string }
+          - { name: titulo, label: Puesto o título, type: string }
+          - { name: lugar, label: "Empresa / institución", type: string }
+          - { name: detalle, label: Detalle, type: text }
   - name: estetica
     label: Estética
     type: file

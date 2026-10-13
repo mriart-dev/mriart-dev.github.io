@@ -10,6 +10,7 @@ async function cargar() {
   pintarProyectos('Todos');
   ruta();
   animarPortada();
+  requestAnimationFrame(() => document.body.classList.add('listo'));
 }
 
 function aplicarEstetica() {
@@ -40,6 +41,11 @@ function pintarPerfil() {
   document.querySelectorAll('[data-titulo]').forEach(e => e.textContent = perfil.titulo);
   document.querySelectorAll('[data-bajada]').forEach(e => e.textContent = perfil.bajada);
   document.querySelectorAll('[data-universidad]').forEach(e => e.textContent = perfil.universidad);
+  $('#timeline').innerHTML = (perfil.experiencia || []).map(e => `
+    <li class="revelar"><span class="fecha">${esc(e.fecha)}</span><h3>${esc(e.titulo)}</h3>
+    <div class="lugar">${esc(e.lugar)}</div>${e.detalle ? `<p>${esc(e.detalle)}</p>` : ''}</li>`).join('');
+  $('#idiomas').innerHTML = (perfil.idiomas || []).map(i => `<li>${esc(i)}</li>`).join('');
+  $('#certificaciones').innerHTML = (perfil.certificaciones || []).map(i => `<li>${esc(i)}</li>`).join('');
   $('#habilidades').innerHTML = (perfil.habilidades || []).map(h => `<li>${esc(h)}</li>`).join('');
   document.querySelectorAll('[data-foto]').forEach(e => { if (perfil.foto) { e.src = perfil.foto; e.hidden = false; } });
   const links = [];
@@ -84,14 +90,17 @@ function ruta() {
         <a class="volver" href="#/proyectos">← Volver a proyectos</a>
         <span class="meta">${esc(p.area)} · ${esc(p.anio)}</span>
         <h1>${esc(p.titulo)}</h1>
+        ${p.contexto ? `<p class="contexto">${esc(p.contexto)}</p>` : ''}
         <div class="det-grid">
-          <div><p>${esc(p.descripcion)}</p></div>
+          <div>${String(p.descripcion || '').split(/\n\s*\n/).map(t => `<p>${esc(t)}</p>`).join('')}</div>
           <dl class="ficha">
             <dt>Área</dt><dd>${esc(p.area)}</dd>
             <dt>Año</dt><dd>${esc(p.anio)}</dd>
             <dt>Herramientas</dt><dd><ul class="chips" style="margin-top:6px">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul></dd>
+            ${p.documento ? `<a class="btn" href="${esc(p.documento)}" target="_blank" rel="noopener">Ver informe completo (PDF)</a>` : ''}
           </dl>
         </div>
+        ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
         <div class="galeria">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — imagen ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
       det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
       document.title = `${p.titulo} — ${perfil.nombre}`;

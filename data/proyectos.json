@@ -1,13 +1,66 @@
 [
   {
+    "id": "prensa-carbono",
+    "titulo": "Prensa para curado de placas de fibra de carbono",
+    "resumen": "Dimensionamiento térmico de una prensa calefaccionada para placas de carbono/epoxi de 500 × 500 mm, validado con simulación por volúmenes finitos.",
+    "descripcion": "Diseño térmico de una prensa para curar placas de composite carbono/epoxi (HexPly M79) de 500 × 500 mm y 20 a 100 mm de espesor, con el requisito de mantener la uniformidad de temperatura dentro de 5 °C durante todo el curado.\n\nCalculé la potencia necesaria con balances globales de energía, seleccioné mantas calefactoras de silicona y aislación térmica, y desarrollé dos modelos transitorios por volúmenes finitos (FVM): uno en planta para comparar cuatro distribuciones de calefacción y otro a través del espesor para verificar que el centro de la placa alcance la temperatura de proceso, incluyendo la exotermia de la resina.\n\nEl layout multizona centro–bordes fue el único que cumplió el criterio: compensa las pérdidas del perímetro sin aumentar la potencia total. También definí la estrategia de control (anticipativa + proporcional) y el ciclo térmico completo.",
+    "destacados": [
+      [
+        "1,5 kW",
+        "potencia instalada"
+      ],
+      [
+        "4,37 °C",
+        "dispersión máxima (< 5 °C)"
+      ],
+      [
+        "12,2 h",
+        "ciclo de curado calculado"
+      ],
+      [
+        "20 mm",
+        "aislación ROCKWOOL"
+      ]
+    ],
+    "herramientas": [
+      "MATLAB",
+      "Volúmenes finitos (FVM)",
+      "Transferencia de calor",
+      "Materiales compuestos",
+      "Control térmico"
+    ],
+    "area": "Análisis térmico",
+    "anio": "2026",
+    "contexto": "Trabajo final — Termofluidos II, ITBA",
+    "documento": "docs/prensa-placas-carbono.pdf",
+    "portada": "img/prensa-carbono/portada.jpg",
+    "imagenes": [
+      "img/prensa-carbono/portada.jpg",
+      "img/prensa-carbono/esquema-capas.png",
+      "img/prensa-carbono/layouts-potencia.png",
+      "img/prensa-carbono/comparacion-layouts.png",
+      "img/prensa-carbono/ciclo-curado.png"
+    ]
+  },
+  {
     "id": "baja-bug",
     "titulo": "Baja Bug — Chasis tubular",
     "resumen": "Diseño 3D del chasis tubular de un vehículo off-road biplaza e integración de sus componentes principales.",
     "descripcion": "Modelado en CATIA V5 de la estructura tubular de un buggy off-road: jaula antivuelco, triangulación de la estructura y puntos de anclaje. Sobre el chasis se integraron asientos, suspensión trasera con amortiguadores, tren motriz y ruedas para verificar espacios, ergonomía y montaje del conjunto.",
-    "herramientas": ["CATIA V5", "Diseño de estructuras", "Ensambles"],
+    "herramientas": [
+      "CATIA V5",
+      "Diseño de estructuras",
+      "Ensambles"
+    ],
     "area": "Diseño CAD",
     "anio": "2026",
     "portada": "img/baja-bug/05.jpg",
-    "imagenes": ["img/baja-bug/05.jpg", "img/baja-bug/03.jpg", "img/baja-bug/04.jpg", "img/baja-bug/01.jpg", "img/baja-bug/02.jpg"]
+    "imagenes": [
+      "img/baja-bug/05.jpg",
+      "img/baja-bug/03.jpg",
+      "img/baja-bug/04.jpg",
+      "img/baja-bug/01.jpg",
+      "img/baja-bug/02.jpg"
+    ]
   }
 ]

@@ -1,18 +1,66 @@
 {
   "nombre": "Manuel Riart",
-  "titulo": "Estudiante de Ingeniería Mecánica",
-  "bajada": "Diseño mecánico, modelado CAD y desarrollo de estructuras. Me interesa transformar ideas en piezas y sistemas que funcionen.",
-  "universidad": "ITBA — Instituto Tecnológico de Buenos Aires",
+  "titulo": "Estudiante avanzado de Ingeniería Mecánica",
+  "bajada": "Estudiante de Ingeniería Mecánica con orientación automotriz en el ITBA. Experiencia en telemetría de Turismo Carretera y en el desarrollo de un monoplaza Formula SAE. Me enfoco en ingeniería de producto, diseño, análisis por elementos finitos, CAD y manufactura.",
+  "universidad": "ITBA — Ingeniería Mecánica, orientación Automotriz · Intercambio en la Universidad del País Vasco (UPV/EHU)",
   "email": "mriart@itba.edu.ar",
   "linkedin": "https://www.linkedin.com/in/manuel-riart-40a1b0241/",
   "cv": "cv.pdf",
   "habilidades": [
     "CATIA V5",
-    "Modelado 3D / CAD",
-    "Diseño de estructuras tubulares",
-    "Ensambles y mecanismos",
-    "Interpretación de planos"
+    "Siemens NX",
+    "SolidWorks",
+    "GT-SUITE",
+    "MoTeC i2 Pro",
+    "OptimumKinematics",
+    "MATLAB",
+    "Python",
+    "Arduino",
+    "Telemetría",
+    "Motores de combustión interna",
+    "Sistemas mecatrónicos"
   ],
   "telefono": "+54 9 3460 69 7836",
-  "foto": "https://github.com/mriart-dev.png"
+  "foto": "https://github.com/mriart-dev.png",
+  "ubicacion": "CABA, Argentina",
+  "idiomas": [
+    "Español — nativo",
+    "Inglés — avanzado (FCE B2)"
+  ],
+  "experiencia": [
+    {
+      "fecha": "Oct 2026",
+      "titulo": "1.er puesto — Ford Innovation Challenge III: AI Edition",
+      "lugar": "Ford Argentina",
+      "detalle": "Ganador del desafío Data-Driven Predictive Quality."
+    },
+    {
+      "fecha": "Sep 2025 – Ene 2026",
+      "titulo": "Intercambio académico internacional",
+      "lugar": "Universidad del País Vasco (UPV/EHU), España",
+      "detalle": ""
+    },
+    {
+      "fecha": "2023 – actualidad",
+      "titulo": "Formula SAE ITBA",
+      "lugar": "Equipo de competición universitario",
+      "detalle": "Diseño y construcción de un monoplaza de competición en un equipo interdisciplinario, con herramientas CAD y gestión de proyectos."
+    },
+    {
+      "fecha": "2023",
+      "titulo": "Telemetría — Turismo Carretera",
+      "lugar": "Di Meglio Motorsport",
+      "detalle": "Recopilación de datos en pista y análisis de telemetría y video del vehículo. Participación en revisiones técnicas y resolución de problemas, considerando diseño mecánico, selección de materiales y manufactura."
+    },
+    {
+      "fecha": "2021 – actualidad",
+      "titulo": "Ingeniería Mecánica, orientación Automotriz",
+      "lugar": "Instituto Tecnológico de Buenos Aires (ITBA)",
+      "detalle": ""
+    }
+  ],
+  "certificaciones": [
+    "First Certificate in English (FCE B2)",
+    "Excel XLS101x — Universitat Politècnica de València"
+  ]
 }
