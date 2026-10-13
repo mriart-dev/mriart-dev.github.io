@@ -225,6 +225,10 @@ function ruta() {
         mostrarPDF(p.documento, $('#paginas'));
       }
       det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
+      // Cada foto y video ocupa un ancho proporcional a su forma real (filas justificadas)
+      const ajustar = (el, w, h) => { if (w && h) { el.style.flex = `${w / h} 1 ${Math.round(260 * w / h)}px`; } };
+      det.querySelectorAll('.galeria img').forEach(im => im.complete ? ajustar(im, im.naturalWidth, im.naturalHeight) : im.addEventListener('load', () => ajustar(im, im.naturalWidth, im.naturalHeight)));
+      det.querySelectorAll('.videos video').forEach(v => v.addEventListener('loadedmetadata', () => { const f = v.closest('figure'); ajustar(f, v.videoWidth, v.videoHeight); f.style.maxWidth = `${Math.round(520 * v.videoWidth / v.videoHeight)}px`; }));
       const ioVid = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .3});
       det.querySelectorAll('.videos video').forEach(v => { v.muted = true; ioVid.observe(v); });
       document.title = `${p.titulo} — ${perfil.nombre}`;
