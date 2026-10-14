@@ -252,8 +252,9 @@ function ruta() {
           </dl>
         </div>
         ${(p.destacados || []).length ? `<div class="destacados">${p.destacados.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>` : ''}
-        ${(p.videos || []).length ? `<div class="videos">${p.videos.map(v => `<figure><video src="${esc(v.src)}" ${v.poster ? `poster="${esc(v.poster)}"` : ''} muted loop playsinline autoplay preload="metadata" disablepictureinpicture></video>${v.titulo ? `<figcaption>${esc(v.titulo)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}
-        <div class="galeria${(p.imagenes || []).length === 1 ? ' sola' : ''}">${(p.imagenes || []).map((src, i) => `<img src="${esc(src)}" alt="${esc(p.titulo)} — ${t('imagen')} ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
+        <div class="galeria">${medios(p).map((m, i) => m.tipo === 'video'
+          ? `<video src="${esc(m.src)}" ${m.poster ? `poster="${esc(m.poster)}"` : ''} title="${esc(m.titulo || '')}" data-i="${i}" muted loop playsinline autoplay preload="metadata" disablepictureinpicture></video>`
+          : `<img src="${esc(m.src)}" alt="${esc(p.titulo)} — ${t('imagen')} ${i + 1}" data-i="${i}" loading="lazy">`).join('')}</div>`;
       if (p.documento && p.mostrar_documento) {
         det.insertAdjacentHTML('beforeend', `
           <section class="lector">
@@ -263,20 +264,18 @@ function ruta() {
           </section>`);
         mostrarPDF(p.documento, $('#paginas'));
       }
-      det.querySelectorAll('.galeria img').forEach(img => img.onclick = () => abrirVisor(p.imagenes, +img.dataset.i));
-      // Cada foto y video ocupa un ancho proporcional a su forma real (filas justificadas)
-      const ajustar = (el, w, h) => { if (w && h) { el.style.flex = `${w / h} 1 ${Math.round(260 * w / h)}px`; } };
       const gal = det.querySelector('.galeria');
-      const imgs = [...gal.querySelectorAll('img')];
-      Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => {
+      const piezas = [...gal.children];
+      piezas.forEach(el => el.onclick = () => abrirVisor(medios(p), +el.dataset.i));
+      const listo = el => el.tagName === 'VIDEO' ? (el.readyState >= 1 ? 0 : new Promise(r => { el.onloadedmetadata = el.onerror = r; })) : (el.complete ? 0 : new Promise(r => { el.onload = el.onerror = r; }));
+      Promise.all(piezas.map(listo)).then(() => {
         justificar(gal);
-        imgs.forEach((im, k) => { im.classList.add('cascada'); im.style.transitionDelay = `${(k % 6) * 70}ms`; });
+        piezas.forEach((el, k) => { el.classList.add('cascada'); el.style.transitionDelay = `${(k % 6) * 70}ms`; });
         const ioG = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ioG.unobserve(e.target); } }), {threshold: .1});
-        imgs.forEach(im => ioG.observe(im));
+        piezas.forEach(el => ioG.observe(el));
       });
-      det.querySelectorAll('.videos video').forEach(v => v.addEventListener('loadedmetadata', () => { const f = v.closest('figure'); ajustar(f, v.videoWidth, v.videoHeight); f.style.maxWidth = `${Math.round(520 * v.videoWidth / v.videoHeight)}px`; }));
       const ioVid = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .3});
-      det.querySelectorAll('.videos video').forEach(v => { v.muted = true; ioVid.observe(v); });
+      gal.querySelectorAll('video').forEach(v => { v.muted = true; ioVid.observe(v); });
       document.title = `${p.titulo} — ${perfil.nombre}`;
       scrollTo(0, 0);
       return;
@@ -372,9 +371,10 @@ function abrirDoc(url, titulo) {
 // Galería justificada: filas de igual altura que llenan el ancho; cada foto mantiene su proporción
 function justificar(gal) {
   if (!gal || !gal.isConnected) return;
-  const imgs = [...gal.querySelectorAll('img')].filter(im => im.naturalWidth);
-  const W = gal.clientWidth, gap = 12, objetivo = W < 600 ? 170 : 280;
-  const r = im => im.naturalWidth / im.naturalHeight;
+  const ancho = el => el.naturalWidth || el.videoWidth, altoN = el => el.naturalHeight || el.videoHeight;
+  const imgs = [...gal.children].filter(el => ancho(el));
+  const W = gal.clientWidth, gap = 12, objetivo = W < 600 ? 230 : 380;
+  const r = im => ancho(im) / altoN(im);
   const alto = fila => (W - gap * (fila.length - 1)) / fila.reduce((a, im) => a + r(im), 0);
   // Arma filas que se acercan a la altura objetivo
   const filas = [];
@@ -413,16 +413,32 @@ function aviso(texto) {
   clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('ver'), 2600);
 }
 
+// Fotos y videos de un proyecto, en un solo orden: primero los videos
+function medios(p) {
+  return [...(p.videos || []).map(v => ({tipo: 'video', ...v})), ...(p.imagenes || []).map(src => ({tipo: 'img', src}))];
+}
 let galeria = [], idx = 0;
-function abrirVisor(imgs, i) { galeria = imgs; idx = i; $('#visor').hidden = false; mostrar(); }
-function mostrar() { const im = $('#visor img'); im.src = galeria[idx]; im.hidden = false; }
-$('#visor .cerrar').onclick = () => $('#visor').hidden = true;
+function abrirVisor(lista, i) { galeria = lista.map(m => typeof m === 'string' ? {tipo: 'img', src: m} : m); idx = i; $('#visor').hidden = false; mostrar(); }
+function mostrar() {
+  const m = galeria[idx], im = $('#visor img'), vid = $('#visor video');
+  $('#visor .contador').textContent = galeria.length > 1 ? `${idx + 1} / ${galeria.length}` : '';
+  $('#visor .prev').hidden = $('#visor .next').hidden = galeria.length < 2;
+  if (m.tipo === 'video') { im.hidden = true; vid.hidden = false; vid.src = m.src; vid.muted = true; vid.play().catch(() => {}); }
+  else { vid.pause(); vid.hidden = true; vid.removeAttribute('src'); im.src = m.src; im.hidden = false; }
+}
+function cerrarVisor() { $('#visor').hidden = true; $('#visor video').pause(); }
+// Deslizar con el dedo en el celular
+{ let x0 = null;
+  $('#visor').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+  $('#visor').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) $(dx < 0 ? '#visor .next' : '#visor .prev').click(); }); }
+$('#visor .cerrar').onclick = cerrarVisor;
 $('#visor .prev').onclick = e => { e.stopPropagation(); idx = (idx - 1 + galeria.length) % galeria.length; mostrar(); };
 $('#visor .next').onclick = e => { e.stopPropagation(); idx = (idx + 1) % galeria.length; mostrar(); };
-$('#visor').onclick = e => { if (e.target.id === 'visor') $('#visor').hidden = true; };
+$('#visor').onclick = e => { if (e.target.id === 'visor') cerrarVisor(); };
 addEventListener('keydown', e => {
   if ($('#visor').hidden) return;
-  if (e.key === 'Escape') $('#visor').hidden = true;
+  if (e.key === 'Escape') cerrarVisor();
   if (e.key === 'ArrowLeft') $('#visor .prev').click();
   if (e.key === 'ArrowRight') $('#visor .next').click();
 });

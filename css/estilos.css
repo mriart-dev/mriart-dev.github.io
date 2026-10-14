@@ -182,3 +182,11 @@ h1,h2,.tarjeta h3,#detalle h1,.cifras b{font-family:'Space Grotesk',var(--fuente
 :root[data-tema="oscuro"] .marcas img{mix-blend-mode:normal;filter:grayscale(1) invert(1) brightness(1.4);opacity:.55}
 :root[data-tema="oscuro"] .marcas img:hover{filter:invert(1) hue-rotate(180deg);opacity:.9}
 @media (max-width:720px){.marcas img{height:28px !important}}
+.galeria video{border-radius:6px;cursor:zoom-in;background:#000;display:inline-block}
+#visor video{max-height:90vh;max-width:100%;border-radius:8px}
+#visor img{max-width:100%}
+#visor .prev,#visor .next{top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:#ffffff1f;display:flex;align-items:center;justify-content:center;font-size:2rem;line-height:1;transition:background .2s}
+#visor .prev:hover,#visor .next:hover{background:#ffffff3d}
+#visor .prev[hidden],#visor .next[hidden]{display:none}
+#visor .contador{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:#ddd;font-size:.85rem;letter-spacing:.06em}
+@media (max-width:720px){#visor{padding:40px 8px}#visor .prev,#visor .next{width:42px;height:42px;font-size:1.6rem;background:#0006}}
