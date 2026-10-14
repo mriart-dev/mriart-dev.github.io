@@ -184,8 +184,8 @@
     },
     "simulador": {
       "titulo": "Driving simulator — Chassis and sequential shifter",
-      "resumen": "Design and construction of a tubular chassis for a driving simulator and of a sequential gear shifter made from recycled parts with Arduino electronics.",
-      "descripcion": "Personal project in which I designed and built a complete driving simulator, from the structure to the controls.\n\nChassis: I designed and built a tubular steel chassis that provides a rigid base to mount the seat, steering wheel, pedals and the rest of the simulator components, with a driving position similar to that of a race car.\n\nSequential shifter: I designed in CATIA V5 and built a sequential gear lever reusing recycled parts from an agricultural machine, with a spring-return mechanism.\n\nElectronics: I developed the shifter's electronic system with Arduino, which reads upshifts and downshifts and sends them to the simulator.\n\nManufacturing: I cut, welded and finished the chassis and shifter parts in the workshop.",
+      "resumen": "Design and construction of a tubular chassis for a driving simulator, with an adjustable seat, and of a sequential gear shifter made from recycled parts with Arduino electronics.",
+      "descripcion": "Personal project in which I designed and built the structure of a driving simulator and its sequential gear shifter.\n\nChassis: I designed and built a tubular steel chassis that provides a rigid base to mount the seat, steering wheel, pedals and the rest of the simulator components, with a driving position similar to that of a touring race car.\n\nDriving position: the seat is adjustable thanks to a slide-rail system I designed, to adapt the position to each driver.\n\nSequential shifter: I designed in CATIA V5 and built a sequential gear lever reusing recycled parts from an agricultural machine.\n\nElectronics: I developed the shifter's electronic system with Arduino, which reads upshifts and downshifts and sends them to the simulator.\n\nManufacturing: I cut, welded and finished the chassis and shifter parts in the workshop.",
       "herramientas": [
         "CATIA V5",
         "Structural design",
