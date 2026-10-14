@@ -104,16 +104,16 @@
       "area": "Engines"
     },
     "dron-vtol": {
-      "titulo": "VTOL drone for agricultural spraying",
-      "resumen": "First prototype of a drone that takes off vertically and then flies horizontally like an airplane, designed for crop spraying.",
-      "descripcion": "Design of a VTOL (vertical take-off and landing) drone for agricultural spraying: it takes off vertically like a multirotor and then transitions to horizontal flight like an airplane, combining flexibility to operate in the field with the range of a fixed wing.\n\nThis first prototype defines the horizontal-flight configuration: wing, fuselage, tail boom, empennage and propulsion. The vertical take-off system is still under development.",
+      "titulo": "Agricultural spraying drone",
+      "resumen": "First prototype of a fixed-wing drone designed for agricultural spraying.",
+      "descripcion": "Design of a fixed-wing drone for agricultural spraying, intended to cover large crop areas with greater range than conventional multirotor drones.\n\nThis first prototype defines the overall aircraft configuration: wing, fuselage, tail boom, empennage and propulsion, modeled in CATIA V5.",
       "herramientas": [
         "CATIA V5",
         "Aircraft design",
         "Surface modeling"
       ],
       "area": "Aircraft design",
-      "contexto": "First prototype — in development"
+      "contexto": "First prototype"
     },
     "prensa-carbono": {
       "titulo": "Curing press for carbon fiber plates",

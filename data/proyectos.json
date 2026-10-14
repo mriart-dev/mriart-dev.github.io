@@ -113,16 +113,16 @@
   },
   {
     "id": "dron-vtol",
-    "titulo": "Dron VTOL para fumigación agrícola",
-    "resumen": "Primer prototipo de un dron de despegue vertical que luego vuela horizontalmente como un avión, pensado para fumigación agrícola.",
-    "descripcion": "Diseño de un dron VTOL (despegue y aterrizaje vertical) para fumigación agrícola: despega en vertical como un multirrotor y luego pasa a vuelo horizontal como un avión, lo que combina la flexibilidad para operar en el campo con la autonomía de un ala fija.\n\nEste primer prototipo define la configuración de vuelo horizontal: ala, fuselaje, botalón de cola, empenaje y propulsión. El sistema de despegue vertical todavía está en desarrollo.",
+    "titulo": "Dron para fumigación agrícola",
+    "resumen": "Primer prototipo de un dron de ala fija diseñado para la fumigación agrícola.",
+    "descripcion": "Diseño de un dron de ala fija para fumigación agrícola, pensado para cubrir grandes superficies de cultivo con mayor autonomía que los drones multirrotor convencionales.\n\nEste primer prototipo define la configuración general de la aeronave: ala, fuselaje, botalón de cola, empenaje y propulsión, modelados en CATIA V5.",
     "herramientas": [
       "CATIA V5",
       "Diseño aeronáutico",
       "Modelado de superficies"
     ],
     "area": "Diseño aeronáutico",
-    "contexto": "Primer prototipo — en desarrollo",
+    "contexto": "Primer prototipo",
     "portada": "img/dron-vtol/01.jpg",
     "imagenes": [
       "img/dron-vtol/01.jpg"
