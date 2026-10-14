@@ -93,5 +93,46 @@
       "clave": "secundari|bachiller",
       "archivo": "Título secundario (1).pdf"
     }
+  ],
+  "cifras": [
+    {
+      "auto": "proyectos",
+      "valor": 7,
+      "texto": "proyectos"
+    },
+    {
+      "valor": 3,
+      "sufijo": "+",
+      "texto": "años en Formula SAE"
+    },
+    {
+      "valor": 1,
+      "prefijo": "",
+      "sufijo": ".º",
+      "texto": "puesto Ford Innovation Challenge"
+    }
+  ],
+  "marcas": [
+    {
+      "nombre": "ITBA",
+      "logo": "img/logos/itba.png",
+      "alto": 46
+    },
+    {
+      "nombre": "SAE International",
+      "logo": "img/logos/sae.svg",
+      "alto": 34
+    },
+    {
+      "nombre": "Di Meglio Motorsport"
+    },
+    {
+      "nombre": "Ford",
+      "logo": "img/logos/ford.svg",
+      "alto": 40
+    },
+    {
+      "nombre": "UPV/EHU"
+    }
   ]
 }

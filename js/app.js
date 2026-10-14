@@ -45,6 +45,7 @@ async function cargar() {
     proyectos = proyectos.map(p => traducir(p, (en.proyectos || {})[p.id] || {}));
   }
   pintarInterfaz();
+  pintarCifras();
   contarVisitas();
   aplicarEstetica();
   pintarPerfil();
@@ -54,6 +55,24 @@ async function cargar() {
   ruta();
   animarPortada();
   requestAnimationFrame(() => document.body.classList.add('listo'));
+}
+
+function pintarCifras() {
+  const cifras = (perfil.cifras || []).map(c => c.auto === 'proyectos' ? {...c, valor: proyectos.length} : c);
+  $('#cifras').innerHTML = cifras.map(c => `<div><b data-num="${+c.valor || 0}">${esc(c.prefijo || '')}${c.valor}${esc(c.sufijo || '')}</b><span>${esc(c.texto)}</span></div>`).join('');
+  $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
+    .map(m => m.logo ? `<img src="${esc(m.logo)}" alt="${esc(m.nombre)}" title="${esc(m.nombre)}" loading="lazy"${m.alto ? ` style="height:${+m.alto}px"` : ''}>` : `<span>${esc(m.nombre)}</span>`).join('');
+  // Los números cuentan desde cero cuando aparecen en pantalla
+  const ioC = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; ioC.unobserve(e.target);
+    const b = e.target, fin = +b.dataset.num, c = cifras[[...b.parentElement.parentElement.children].indexOf(b.parentElement)];
+    if (!fin || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t0 = performance.now(), dur = 1200;
+    const paso = now => { const x = Math.min(1, (now - t0) / dur), v = Math.round(fin * (1 - Math.pow(1 - x, 3)));
+      b.textContent = `${c.prefijo || ''}${v}${c.sufijo || ''}`; if (x < 1) requestAnimationFrame(paso); };
+    requestAnimationFrame(paso);
+  }), {threshold: .6});
+  document.querySelectorAll('#cifras b[data-num]').forEach(b => ioC.observe(b));
 }
 
 function pintarInterfaz() {
@@ -177,9 +196,22 @@ async function pintarCertificados() {
   observar();
 }
 
+function videoEnTarjetas() {
+  if (!matchMedia('(hover: hover)').matches) return;
+  document.querySelectorAll('.tarjeta[data-video]').forEach(a => {
+    const caja = a.querySelector('.img');
+    a.addEventListener('mouseenter', () => {
+      let v = caja.querySelector('video');
+      if (!v) { v = document.createElement('video'); Object.assign(v, {src: a.dataset.video, muted: true, loop: true, playsInline: true}); caja.appendChild(v); }
+      v.currentTime = 0; v.play().catch(() => {}); caja.classList.add('con-video');
+    });
+    a.addEventListener('mouseleave', () => { caja.classList.remove('con-video'); caja.querySelector('video')?.pause(); });
+  });
+}
+
 function pintarProyectos() {
   $('#grilla').innerHTML = proyectos.map(p => `
-    <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}">
+    <a class="tarjeta revelar" href="#/proyecto/${esc(p.id)}"${p.video_tarjeta ? ` data-video="${esc(p.video_tarjeta)}"` : ''}>
       <div class="img" style="--fondo:url('${esc(new URL(p.portada || p.imagenes?.[0], location.href).href)}')"><img src="${esc(p.portada || p.imagenes?.[0])}" alt="${esc(p.titulo)}" loading="lazy"${p.portada_escala ? ` style="--escala:${+p.portada_escala}"` : ''}></div>
       <div class="info">
         <span class="meta">${esc(p.area)}</span>
@@ -188,6 +220,7 @@ function pintarProyectos() {
         <ul class="chips">${(p.herramientas || []).map(h => `<li>${esc(h)}</li>`).join('')}</ul>
       </div>
     </a>`).join('');
+  videoEnTarjetas();
   observar();
 }
 
@@ -198,6 +231,7 @@ function ruta() {
     const p = proyectos.find(x => x.id === h.split('/')[1]);
     if (p) {
       ini.hidden = true; det.hidden = false;
+      document.querySelectorAll('.tarjeta .img').forEach(c => c.style.viewTransitionName = '');
       det.innerHTML = `
         <a class="volver" href="#/proyectos">${t('volver')}</a>
         <span class="meta">${esc(p.area)}</span>
@@ -229,7 +263,12 @@ function ruta() {
       const ajustar = (el, w, h) => { if (w && h) { el.style.flex = `${w / h} 1 ${Math.round(260 * w / h)}px`; } };
       const gal = det.querySelector('.galeria');
       const imgs = [...gal.querySelectorAll('img')];
-      Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => justificar(gal));
+      Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => {
+        justificar(gal);
+        imgs.forEach((im, k) => { im.classList.add('cascada'); im.style.transitionDelay = `${(k % 6) * 70}ms`; });
+        const ioG = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ioG.unobserve(e.target); } }), {threshold: .1});
+        imgs.forEach(im => ioG.observe(im));
+      });
       det.querySelectorAll('.videos video').forEach(v => v.addEventListener('loadedmetadata', () => { const f = v.closest('figure'); ajustar(f, v.videoWidth, v.videoHeight); f.style.maxWidth = `${Math.round(520 * v.videoWidth / v.videoHeight)}px`; }));
       const ioVid = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .3});
       det.querySelectorAll('.videos video').forEach(v => { v.muted = true; ioVid.observe(v); });
@@ -243,7 +282,11 @@ function ruta() {
   const sec = document.getElementById(h);
   if (sec) sec.scrollIntoView({behavior: 'smooth'});
 }
-addEventListener('hashchange', ruta);
+addEventListener('hashchange', () => {
+  const sale = location.hash.startsWith('#/proyecto/') !== !$('#detalle').hidden;
+  if (sale && document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(ruta);
+  else ruta();
+});
 // Cuenta en GoatCounter cada proyecto abierto (la página cambia de sección sin recargar)
 addEventListener('hashchange', () => {
   const h = location.hash.replace(/^#\/?/, '');
@@ -351,7 +394,8 @@ function justificar(gal) {
   filas.forEach((f, n) => {
     const h = f.ultima ? Math.min(alto(f), filas.length === 1 && f.length === 1 ? objetivo * 2.2 : objetivo) : alto(f);
     f.forEach((im, k) => {
-      im.style.cssText = `width:${Math.floor(r(im) * h)}px;height:${Math.floor(h)}px;margin:0 ${k < f.length - 1 ? gap : 0}px ${gap}px 0;display:inline-block;vertical-align:top;object-fit:cover`;
+      const delay = im.style.transitionDelay;
+      im.style.cssText = `transition-delay:${delay};width:${Math.floor(r(im) * h)}px;height:${Math.floor(h)}px;margin:0 ${k < f.length - 1 ? gap : 0}px ${gap}px 0;display:inline-block;vertical-align:top;object-fit:cover`;
     });
   });
 }
@@ -446,10 +490,29 @@ function animarPortada() {
         ctx.fillStyle = acento + hex(S[n] * f);
         ctx.beginPath(); ctx.arc(P[n][0], P[n][1], 1.5 + 1.5 * S[n], 0, 7); ctx.fill();
       }
+      // Mira tipo CAD con coordenadas, solo con el mouse sobre la zona de la malla
+      if (mx !== null && fade(mx) > .2) {
+        const f = fade(mx);
+        ctx.save();
+        ctx.strokeStyle = acento + hex(.35 * f); ctx.lineWidth = 1; ctx.setLineDash([4, 6]);
+        ctx.beginPath(); ctx.moveTo(mx, 0); ctx.lineTo(mx, H); ctx.moveTo(W * .3, my); ctx.lineTo(W, my); ctx.stroke();
+        ctx.setLineDash([]); ctx.strokeStyle = acento + hex(.9 * f); ctx.lineWidth = 1.4;
+        ctx.strokeRect(mx - 7, my - 7, 14, 14);
+        ctx.fillStyle = acento + hex(.85 * f);
+        ctx.font = '500 11px ui-monospace, SFMono-Regular, Menlo, monospace';
+        ctx.fillText(`X ${(mx / 2).toFixed(1)}  Y ${((H - my) / 2).toFixed(1)}`, mx + 14, my - 12);
+        ctx.restore();
+      }
     }
     if (!quieto) { t += .016; requestAnimationFrame(cuadro); }
   }
   cuadro();
 }
+
+// Barra de progreso de lectura
+addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  $('#progreso').style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+}, {passive: true});
 
 cargar();

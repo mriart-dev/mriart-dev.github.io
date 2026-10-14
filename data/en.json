@@ -77,6 +77,18 @@
         "nombre": "High school diploma",
         "detalle": "Instituto Privado de la Paz, San Nicolás de los Arroyos"
       }
+    ],
+    "cifras": [
+      {
+        "texto": "projects"
+      },
+      {
+        "texto": "years in Formula SAE"
+      },
+      {
+        "sufijo": "st",
+        "texto": "place, Ford Innovation Challenge"
+      }
     ]
   },
   "proyectos": {

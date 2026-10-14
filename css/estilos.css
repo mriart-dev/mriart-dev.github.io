@@ -152,3 +152,33 @@ button.cert{font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%
 .videos video{display:block;width:100%;height:auto;border-radius:6px}
 .videos figcaption{padding:8px 2px 0;font-size:.85rem;color:var(--sub)}
 .galeria{font-size:0;line-height:0}
+/* Títulos con tipografía técnica */
+h1,h2,.tarjeta h3,#detalle h1,.cifras b{font-family:'Space Grotesk',var(--fuente),system-ui,sans-serif;letter-spacing:-.025em}
+/* Cifras */
+.cifras{display:flex;gap:clamp(18px,4vw,40px);margin-top:26px;flex-wrap:wrap}
+.cifras div{display:flex;flex-direction:column;min-width:90px}
+.cifras b{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:600;color:var(--txt);line-height:1.1;font-variant-numeric:tabular-nums}
+.cifras span{font-size:.82rem;color:var(--sub);margin-top:4px;max-width:150px;line-height:1.35}
+/* Marcas en gris */
+.marcas{display:flex;justify-content:center;align-items:center;gap:clamp(22px,5vw,64px);flex-wrap:wrap;padding:26px 16px;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);max-width:1300px;margin:0 auto}
+.marcas span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);letter-spacing:.02em;color:var(--sub);opacity:.55;filter:grayscale(1);transition:opacity .3s,color .3s}
+.marcas span:hover{opacity:1;color:var(--acento)}
+/* Video en tarjetas */
+.tarjeta .img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
+.tarjeta .img.con-video video{opacity:1}
+/* Fotos en cascada */
+.galeria img.cascada{opacity:0;transform:translateY(14px);transition-property:opacity,transform;transition-duration:.6s;transition-timing-function:ease}
+.galeria img.cascada.visible{opacity:1;transform:none}
+/* Barra de progreso */
+#progreso{position:fixed;top:0;left:0;right:0;height:3px;background:var(--acento);transform-origin:0 50%;transform:scaleX(0);z-index:30;pointer-events:none}
+/* Transición entre páginas */
+::view-transition-old(root){animation:.28s ease both salir}
+::view-transition-new(root){animation:.38s ease both entrar}
+@keyframes salir{to{opacity:0;transform:translateY(-10px)}}
+@keyframes entrar{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){.galeria img.cascada{opacity:1;transform:none}}
+.marcas img{height:40px;width:auto;filter:grayscale(1) contrast(1.1);opacity:.5;mix-blend-mode:multiply;transition:filter .35s,opacity .35s}
+.marcas img:hover{filter:none;opacity:1}
+:root[data-tema="oscuro"] .marcas img{mix-blend-mode:normal;filter:grayscale(1) invert(1) brightness(1.4);opacity:.55}
+:root[data-tema="oscuro"] .marcas img:hover{filter:invert(1) hue-rotate(180deg);opacity:.9}
+@media (max-width:720px){.marcas img{height:28px !important}}

@@ -33,7 +33,8 @@
         "poster": "img/fsae-itba/poster-pista.jpg",
         "titulo": "Pruebas del monoplaza en pista"
       }
-    ]
+    ],
+    "video_tarjeta": "video/fsae-pista.mp4"
   },
   {
     "id": "di-meglio",
