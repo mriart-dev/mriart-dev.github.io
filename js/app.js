@@ -45,7 +45,7 @@ async function cargar() {
     proyectos = proyectos.map(p => traducir(p, (en.proyectos || {})[p.id] || {}));
   }
   pintarInterfaz();
-  pintarCifras();
+  pintarMarcas();
   contarVisitas();
   aplicarEstetica();
   pintarPerfil();
@@ -55,6 +55,11 @@ async function cargar() {
   ruta();
   animarPortada();
   requestAnimationFrame(() => document.body.classList.add('listo'));
+}
+
+function pintarMarcas() {
+  $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
+    .map(m => m.logo ? `<img src="${esc(m.logo)}" alt="${esc(m.nombre)}" title="${esc(m.nombre)}" loading="lazy"${m.alto ? ` style="height:${+m.alto}px"` : ''}>` : `<span>${esc(m.nombre)}</span>`).join('');
 }
 
 function pintarCifras() {

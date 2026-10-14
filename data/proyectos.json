@@ -13,7 +13,7 @@
     ],
     "area": "Experiencia — Equipo de competición",
     "contexto": "Equipo Formula SAE del ITBA · 2023 – actualidad",
-    "portada": "img/fsae-itba/01.jpg",
+    "portada": "img/fsae-itba/06.jpg",
     "imagenes": [
       "img/fsae-itba/01.jpg",
       "img/fsae-itba/02.jpg",
@@ -93,7 +93,7 @@
   {
     "id": "sobrealimentacion-vapor",
     "titulo": "Sobrealimentación con vapor",
-    "resumen": "Sistema que sobrealimenta un motor de 4 cilindros y 4 tiempos con vapor generado a partir del agua de refrigeración.",
+    "resumen": "Sistema de sobrealimentación de un motor de cuatro tiempos mediante vapor generado a partir del líquido refrigerante.",
     "descripcion": "Diseño de un sistema de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos que aprovecha el calor del agua de refrigeración: el agua se convierte en vapor y ese vapor se usa para impulsar la sobrealimentación del motor.\n\nModelé en CATIA V5 el conjunto completo integrado al motor: circuitos de agua y vapor, conductos de admisión, el sistema de sobrealimentación y el radiador, cuidando el recorrido de cada línea y el espacio disponible alrededor del motor.",
     "herramientas": [
       "CATIA V5",

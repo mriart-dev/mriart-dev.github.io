@@ -1,7 +1,7 @@
 {
   "perfil": {
     "titulo": "Advanced Mechanical Engineering Student",
-    "bajada": "Advanced Mechanical Engineering student at ITBA, on the automotive track. I worked in the engineering department of a Turismo Carretera racing team, and I design and build components for my university's Formula SAE car. I combine CAD design, finite element analysis and data acquisition with hands-on workshop experience.",
+    "bajada": "Advanced Mechanical Engineering student at ITBA, on the automotive track. Experience in CAD design and finite element analysis applied to race cars, in Formula SAE and Turismo Carretera, complemented by data acquisition and hands-on workshop work.",
     "universidad": "ITBA — Mechanical Engineering, Automotive track · Exchange at the University of the Basque Country (UPV/EHU)",
     "idiomas": [
       "Spanish — native",
@@ -77,18 +77,6 @@
         "nombre": "High school diploma",
         "detalle": "Instituto Privado de la Paz, San Nicolás de los Arroyos"
       }
-    ],
-    "cifras": [
-      {
-        "texto": "projects"
-      },
-      {
-        "texto": "years in Formula SAE"
-      },
-      {
-        "sufijo": "st",
-        "texto": "place, Ford Innovation Challenge"
-      }
     ]
   },
   "proyectos": {
@@ -105,7 +93,7 @@
     },
     "sobrealimentacion-vapor": {
       "titulo": "Steam supercharging",
-      "resumen": "A system that boosts a 4-cylinder, 4-stroke engine using steam generated from the engine coolant.",
+      "resumen": "Supercharging system for a four-stroke engine using steam generated from the engine coolant.",
       "descripcion": "Design of a forced-induction system for a four-cylinder, four-stroke engine that recovers heat from the cooling water: the coolant is turned into steam, and that steam drives the engine's supercharging.\n\nI modeled the complete system integrated into the engine in CATIA V5: water and steam circuits, intake ducts, the boosting system and the radiator, paying attention to the routing of every line and the space available around the engine.",
       "herramientas": [
         "CATIA V5",
