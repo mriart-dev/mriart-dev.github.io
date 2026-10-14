@@ -17,7 +17,7 @@ const TEXTOS = {
     pagina: 'Página', tituloPag: 'Estudiante avanzado de Ingeniería Mecánica', tema: 'Cambiar modo claro/oscuro'},
   en: {proyectos: 'Projects', experiencia: 'Experience', certificados: 'Certificates', sobre: 'About', cv: 'CV', contacto: 'Contact',
     verProyectos: 'View projects', descargarCV: 'Download CV', expTitulo: 'Experience and education', certTitulo: 'Certificates and diplomas',
-    software: 'Software and skills', idiomas: 'Languages', curriculum: 'Résumé', abrirPDF: 'Open / download PDF', cargandoCV: 'Loading CV…',
+    software: 'Software and skills', idiomas: 'Languages', curriculum: 'CV', abrirPDF: 'Open / download PDF', cargandoCV: 'Loading CV…',
     volver: '← Back to projects', area: 'Field', herramientas: 'Tools', verInforme: 'View full report (PDF)', informe: 'Full report',
     cargandoInforme: 'Loading report…', cargando: 'Loading…', descargar: 'Download', ver: 'View', pronto: 'Coming soon.', imagen: 'image',
     asunto: 'Contact from your portfolio', cvPDF: 'Download CV (PDF)', pdfError: 'The document could not be displayed here.', pdfAbrir: 'Open it in a new tab',

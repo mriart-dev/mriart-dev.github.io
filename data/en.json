@@ -77,7 +77,8 @@
         "nombre": "High school diploma",
         "detalle": "Instituto Privado de la Paz, San Nicolás de los Arroyos"
       }
-    ]
+    ],
+    "cv": "cv-en.pdf"
   },
   "proyectos": {
     "baja-bug": {
