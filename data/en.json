@@ -144,11 +144,12 @@
     },
     "fsae-itba": {
       "titulo": "Formula SAE ITBA — Design and manufacturing",
-      "resumen": "Design of the transmission and pedal box, cockpit mockup and manufacturing of components for the ITBA Formula SAE car.",
-      "descripcion": "I have been a member of the ITBA Formula SAE team since 2023, an interdisciplinary student team that designs, builds and runs a single-seater race car.\n\nTransmission: I designed the car's transmission, a chain drive that delivers the power of the electric motors to the wheels, and its integration into the chassis.\n\nPedal box: I designed the pedal assembly and its mounting on the chassis.\n\nCockpit: I built a full-scale mockup to define the cockpit of the new car. It allows testing driving positions with different drivers before freezing the final chassis geometry.\n\nManufacturing: I took part in building the car, TIG and MIG welding and machining parts on the lathe and milling machine; I also have basic CNC knowledge.",
+      "resumen": "Took part in the design and construction of the transmission and pedal box, developed the cockpit mockup and manufactured components for the ITBA Formula SAE car.",
+      "descripcion": "I have been a member of the ITBA Formula SAE team since 2023, an interdisciplinary student team that designs, builds and runs a single-seater race car.\n\nTransmission: I took part in the design and construction of the car's transmission, a chain drive that delivers the power of the electric motors to the wheels, and in its integration into the chassis.\n\nPedal box: I took part in the design of the pedal assembly and its mounting on the chassis.\n\nCockpit: I developed and built a full-scale mockup to define the cockpit of the new car, which allows testing driving positions with different drivers before freezing the final chassis geometry.\n\nOther engineering tasks: I contributed to other design activities of the team, CAD modeling of components and the preparation of technical drawings for manufacturing.\n\nManufacturing: I took part in building the car, TIG and MIG welding and machining parts on the lathe and milling machine; I also have basic CNC knowledge.",
       "herramientas": [
         "CAD",
-        "Transmission design",
+        "Technical drawings",
+        "Transmissions",
         "TIG / MIG welding",
         "Lathe and milling machine",
         "CNC (basic)"

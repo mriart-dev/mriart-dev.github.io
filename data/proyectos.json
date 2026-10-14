@@ -2,11 +2,12 @@
   {
     "id": "fsae-itba",
     "titulo": "Formula SAE ITBA — Diseño y fabricación",
-    "resumen": "Diseño de la transmisión y la pedalera, mockup del habitáculo y fabricación de componentes del monoplaza del equipo Formula SAE del ITBA.",
-    "descripcion": "Formo parte del equipo Formula SAE del ITBA desde 2023, un equipo interdisciplinario de estudiantes que diseña, fabrica y pone en pista un monoplaza de competición.\n\nTransmisión: diseñé la transmisión del auto, una transmisión por cadena que lleva la potencia de los motores eléctricos a las ruedas, y su integración en el chasis.\n\nPedalera: diseñé el conjunto de pedales y su montaje en el chasis.\n\nHabitáculo: construí un mockup a escala real para definir el habitáculo del nuevo auto. Con él se pueden probar posiciones de manejo con distintos pilotos antes de fijar la geometría definitiva del chasis.\n\nFabricación: participé en la construcción del auto soldando con TIG y MIG y mecanizando piezas en torno y fresadora; tengo además conocimientos básicos de CNC.",
+    "resumen": "Participación en el diseño y la construcción de la transmisión y la pedalera, desarrollo del mockup del habitáculo y fabricación de componentes del monoplaza Formula SAE del ITBA.",
+    "descripcion": "Formo parte del equipo Formula SAE del ITBA desde 2023, un equipo interdisciplinario de estudiantes que diseña, fabrica y pone en pista un monoplaza de competición.\n\nTransmisión: participé en el diseño y la construcción de la transmisión del auto, una transmisión por cadena que lleva la potencia de los motores eléctricos a las ruedas, y en su integración en el chasis.\n\nPedalera: participé en el diseño del conjunto de pedales y de su montaje en el chasis.\n\nHabitáculo: desarrollé y construí un mockup a escala real para definir el habitáculo del nuevo auto, que permite probar posiciones de manejo con distintos pilotos antes de fijar la geometría definitiva del chasis.\n\nOtras tareas de ingeniería: colaboré en otras actividades de diseño del equipo, en el modelado CAD de componentes y en la elaboración de planos técnicos para su fabricación.\n\nFabricación: participé en la construcción del auto soldando con TIG y MIG y mecanizando piezas en torno y fresadora; tengo además conocimientos básicos de CNC.",
     "herramientas": [
       "CAD",
-      "Diseño de transmisiones",
+      "Planos técnicos",
+      "Transmisiones",
       "Soldadura TIG / MIG",
       "Torno y fresadora",
       "CNC (básico)"
