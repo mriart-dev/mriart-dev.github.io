@@ -133,6 +133,32 @@
     "portada_escala": 0.8
   },
   {
+    "id": "simulador",
+    "titulo": "Simulador de manejo — Chasis y selectora secuencial",
+    "resumen": "Diseño y construcción de un chasis tubular para simulador de manejo y de una selectora secuencial de cambios con piezas recicladas y electrónica Arduino.",
+    "descripcion": "Proyecto personal en el que diseñé y construí un simulador de manejo completo, desde la estructura hasta los controles.\n\nChasis: diseñé y fabriqué un chasis tubular de acero que sirve de base rígida para montar el asiento, el volante, la pedalera y los demás componentes del simulador, con una posición de manejo similar a la de un auto de competición.\n\nSelectora secuencial: diseñé en CATIA V5 y fabriqué una palanca de cambios secuencial reutilizando elementos reciclados de una máquina agrícola, con un mecanismo de retorno por resorte.\n\nElectrónica: desarrollé el sistema electrónico de la selectora mediante Arduino, que lee los cambios hacia arriba y hacia abajo y los envía al simulador.\n\nFabricación: corté, soldé y terminé las piezas del chasis y de la selectora en el taller.",
+    "herramientas": [
+      "CATIA V5",
+      "Diseño de estructuras",
+      "Arduino",
+      "Soldadura",
+      "Mecanismos",
+      "Reutilización de materiales"
+    ],
+    "area": "Proyecto personal",
+    "contexto": "Diseño, fabricación y electrónica",
+    "portada": "img/simulador/01.jpg",
+    "imagenes": [
+      "img/simulador/01.jpg",
+      "img/simulador/02.jpg",
+      "img/simulador/03.jpg",
+      "img/simulador/04.jpg",
+      "img/simulador/05.jpg",
+      "img/simulador/06.jpg",
+      "img/simulador/07.jpg"
+    ]
+  },
+  {
     "id": "prensa-carbono",
     "titulo": "Prensa para curado de placas de fibra de carbono",
     "resumen": "Dimensionamiento térmico de una prensa calefaccionada para placas de carbono/epoxi de 500 × 500 mm, validado con simulación por volúmenes finitos.",
