@@ -58,14 +58,14 @@ async function cargar() {
 }
 
 function pintarMarcas() {
-  $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
+  if ($('#marcas')) $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
     .map(m => m.logo ? `<img src="${esc(m.logo)}" alt="${esc(m.nombre)}" title="${esc(m.nombre)}" loading="lazy"${m.alto ? ` style="height:${+m.alto}px"` : ''}>` : `<span>${esc(m.nombre)}</span>`).join('');
 }
 
 function pintarCifras() {
   const cifras = (perfil.cifras || []).map(c => c.auto === 'proyectos' ? {...c, valor: proyectos.length} : c);
   $('#cifras').innerHTML = cifras.map(c => `<div><b data-num="${+c.valor || 0}">${esc(c.prefijo || '')}${c.valor}${esc(c.sufijo || '')}</b><span>${esc(c.texto)}</span></div>`).join('');
-  $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
+  if ($('#marcas')) $('#marcas').innerHTML = (perfil.marcas || []).map(m => typeof m === 'string' ? {nombre: m} : m)
     .map(m => m.logo ? `<img src="${esc(m.logo)}" alt="${esc(m.nombre)}" title="${esc(m.nombre)}" loading="lazy"${m.alto ? ` style="height:${+m.alto}px"` : ''}>` : `<span>${esc(m.nombre)}</span>`).join('');
   // Los números cuentan desde cero cuando aparecen en pantalla
   const ioC = new IntersectionObserver(es => es.forEach(e => {
