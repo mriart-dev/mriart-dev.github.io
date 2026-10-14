@@ -41,14 +41,15 @@
     "id": "di-meglio",
     "titulo": "Di Meglio Motorsport — Turismo Carretera",
     "resumen": "Ayudante del Departamento de Ingeniería de un equipo de Turismo Carretera: CAD, elementos finitos, ensayos, amortiguadores y adquisición de datos.",
-    "descripcion": "Durante 2023 trabajé como ayudante en el Departamento de Ingeniería de Di Meglio Motorsport, equipo de Turismo Carretera, participando tanto en el taller como en las carreras.\n\nDiseño y análisis: realicé modelado CAD y análisis por elementos finitos de distintos componentes del auto.\n\nEnsayos de rigidez: participé en la medición de la rigidez torsional del chasis de un auto y de una barra estabilizadora.\n\nAmortiguadores: trabajé en el ciclado de amortiguadores de competición Baratec en el banco de ensayo y en su mantenimiento.\n\nAdquisición de datos: instalé sistemas de adquisición de datos MoTeC en autos de Turismo Carretera y Turismo Nacional, y analicé los datos registrados en pista. También analicé datos del sistema AiM Solo para ayudar a los pilotos a entender mejor su desempeño en cada vuelta y en cada sector del circuito.",
+    "descripcion": "Durante 2023 trabajé como ayudante en el Departamento de Ingeniería de Di Meglio Motorsport, equipo de Turismo Carretera, participando tanto en el taller como en las carreras.\n\nDiseño y análisis: realicé modelado CAD y análisis por elementos finitos de distintos componentes del auto.\n\nEnsayos de rigidez: participé en la medición de la rigidez torsional del chasis de un auto y de una barra estabilizadora.\n\nAmortiguadores: trabajé en el ciclado de amortiguadores de competición Baratec en el banco de ensayo y en su mantenimiento.\n\nAdquisición de datos: instalé sistemas de adquisición de datos MoTeC en autos de Turismo Carretera y Turismo Nacional, y analicé los datos registrados en pista. También analicé datos del sistema AiM Solo para ayudar a los pilotos a entender mejor su desempeño en cada vuelta y en cada sector del circuito.\n\nAnálisis de rendimiento: diseñé una planilla que recopilaba los tiempos de vuelta de cada piloto por tanda y los dividía en parciales. Previamente caracterizaba cada parcial según el tipo de sector —recta, curva rápida, curva media o curva lenta— y luego analizaba en qué tipo de sector cada piloto tenía mayor o menor rendimiento, para identificar dónde podía mejorar.",
     "herramientas": [
       "CAD",
       "Análisis por elementos finitos",
       "MoTeC i2 Pro",
       "AiM",
       "Ensayos de rigidez",
-      "Banco de amortiguadores"
+      "Banco de amortiguadores",
+      "Análisis de datos"
     ],
     "area": "Experiencia — Automovilismo",
     "contexto": "Departamento de Ingeniería · 2023",

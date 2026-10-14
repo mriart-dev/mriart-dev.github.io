@@ -170,14 +170,15 @@
     "di-meglio": {
       "titulo": "Di Meglio Motorsport — Turismo Carretera",
       "resumen": "Engineering Department Assistant at a Turismo Carretera racing team: CAD, finite elements, testing, dampers and data acquisition.",
-      "descripcion": "During 2023 I worked as an assistant in the Engineering Department of Di Meglio Motorsport, a Turismo Carretera racing team, both in the workshop and at race weekends.\n\nDesign and analysis: I carried out CAD modeling and finite element analysis of different car components.\n\nStiffness testing: I took part in measuring the torsional stiffness of a car's chassis and of an anti-roll bar.\n\nDampers: I worked on cycling Baratec racing dampers on the damper dyno and on their maintenance.\n\nData acquisition: I installed MoTeC data acquisition systems on Turismo Carretera and Turismo Nacional cars and analyzed the data logged on track. I also analyzed data from the AiM Solo system to help drivers better understand their performance on each lap and in each sector of the circuit.",
+      "descripcion": "During 2023 I worked as an assistant in the Engineering Department of Di Meglio Motorsport, a Turismo Carretera racing team, both in the workshop and at race weekends.\n\nDesign and analysis: I carried out CAD modeling and finite element analysis of different car components.\n\nStiffness testing: I took part in measuring the torsional stiffness of a car's chassis and of an anti-roll bar.\n\nDampers: I worked on cycling Baratec racing dampers on the damper dyno and on their maintenance.\n\nData acquisition: I installed MoTeC data acquisition systems on Turismo Carretera and Turismo Nacional cars and analyzed the data logged on track. I also analyzed data from the AiM Solo system to help drivers better understand their performance on each lap and in each sector of the circuit.\n\nPerformance analysis: I designed a spreadsheet that collected each driver's lap times per session and split them into sectors. Each sector was first classified by type —straight, fast corner, medium-speed corner or slow corner— and then analyzed to identify in which type of sector each driver performed better or worse, pinpointing where they could improve.",
       "herramientas": [
         "CAD",
         "Finite element analysis",
         "MoTeC i2 Pro",
         "AiM",
         "Stiffness testing",
-        "Damper dyno"
+        "Damper dyno",
+        "Data analysis"
       ],
       "area": "Experience — Motorsport",
       "contexto": "Engineering Department · 2023"
