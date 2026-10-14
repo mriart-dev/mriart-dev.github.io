@@ -115,12 +115,14 @@
   {
     "id": "dron-vtol",
     "titulo": "Dron para fumigación agrícola",
-    "resumen": "Primer prototipo de un dron de ala fija diseñado para la fumigación agrícola.",
-    "descripcion": "Diseño de un dron de ala fija para fumigación agrícola, pensado para cubrir grandes superficies de cultivo con mayor autonomía que los drones multirrotor convencionales.\n\nEste primer prototipo define la configuración general de la aeronave: ala, fuselaje, botalón de cola, empenaje y propulsión, modelados en CATIA V5.",
+    "resumen": "Primer prototipo de un dron de ala fija para fumigación agrícola, con electrónica de control desarrollada sobre Arduino.",
+    "descripcion": "Diseño y desarrollo de un dron de ala fija para fumigación agrícola, pensado para cubrir grandes superficies de cultivo con mayor autonomía que los drones multirrotor convencionales.\n\nDiseño: este primer prototipo define la configuración general de la aeronave: ala, fuselaje, botalón de cola, empenaje y propulsión, modelados en CATIA V5.\n\nElectrónica y control: me encargué del desarrollo, mediante Arduino, del control remoto y del controlador de las superficies móviles del avión. Los resultados de ambos sistemas en las pruebas fueron positivos.\n\nEnergía: fabriqué la batería del dron a partir de celdas recicladas.\n\nEn desarrollo: actualmente estoy trabajando en el sistema de adquisición de datos del modelo y en la incorporación de un sistema de cámara.",
     "herramientas": [
       "CATIA V5",
-      "Diseño aeronáutico",
-      "Modelado de superficies"
+      "Arduino",
+      "Electrónica de control",
+      "Adquisición de datos",
+      "Diseño aeronáutico"
     ],
     "area": "Diseño aeronáutico",
     "contexto": "Primer prototipo",

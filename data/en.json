@@ -105,12 +105,14 @@
     },
     "dron-vtol": {
       "titulo": "Agricultural spraying drone",
-      "resumen": "First prototype of a fixed-wing drone designed for agricultural spraying.",
-      "descripcion": "Design of a fixed-wing drone for agricultural spraying, intended to cover large crop areas with greater range than conventional multirotor drones.\n\nThis first prototype defines the overall aircraft configuration: wing, fuselage, tail boom, empennage and propulsion, modeled in CATIA V5.",
+      "resumen": "First prototype of a fixed-wing agricultural spraying drone, with Arduino-based control electronics.",
+      "descripcion": "Design and development of a fixed-wing drone for agricultural spraying, intended to cover large crop areas with greater range than conventional multirotor drones.\n\nDesign: this first prototype defines the overall aircraft configuration: wing, fuselage, tail boom, empennage and propulsion, modeled in CATIA V5.\n\nElectronics and control: I developed, using Arduino, the remote control and the controller for the aircraft's control surfaces. Both systems performed well in testing.\n\nPower: I built the drone's battery from recycled cells.\n\nIn progress: I am currently working on the model's data acquisition system and on adding a camera system.",
       "herramientas": [
         "CATIA V5",
-        "Aircraft design",
-        "Surface modeling"
+        "Arduino",
+        "Control electronics",
+        "Data acquisition",
+        "Aircraft design"
       ],
       "area": "Aircraft design",
       "contexto": "First prototype"
