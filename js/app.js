@@ -169,10 +169,8 @@ function pintarPerfil() {
 async function pintarCertificados() {
   const nombre = f => decodeURIComponent(f).replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ');
   let archivos = [];
-  try {
-    const r = await fetch('https://api.github.com/repos/mriart-dev/mriart-dev.github.io/contents/certificados');
-    if (r.ok) archivos = (await r.json()).filter(f => f.type === 'file' && /\.(pdf|png|jpe?g|webp)$/i.test(f.name));
-  } catch {}
+  // La lista sale del perfil (campo "archivo" de cada certificado): no depende de GitHub, funciona con el repositorio privado
+  archivos = (perfil.certificaciones || []).filter(c => c && c.archivo).map(c => ({type: 'file', name: c.archivo}));
   // Cada certificado del perfil se enlaza al archivo cuyo nombre contenga alguna de sus "claves"
   const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const usados = new Set();
