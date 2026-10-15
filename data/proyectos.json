@@ -96,7 +96,7 @@
     "id": "sobrealimentacion",
     "titulo": "Sistema de sobrealimentación no convencional",
     "resumen": "Diseño en CAD de un concepto propio de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos.",
-    "descripcion": "Desarrollé un concepto propio de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos, basado en un principio de funcionamiento distinto al de los sistemas convencionales como el turbocompresor o el compresor mecánico.\n\nModelé en CATIA V5 el conjunto completo integrado al motor: el sistema de sobrealimentación, sus conductos, la admisión y los componentes auxiliares, cuidando el recorrido de cada línea y el espacio disponible alrededor del motor.\n\nEl proyecto se encuentra en etapa de desarrollo conceptual, por lo que los detalles de su funcionamiento se mantienen reservados.",
+    "descripcion": "Desarrollé un concepto propio de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos, basado en un principio de funcionamiento distinto al de los sistemas convencionales como el turbocompresor o el compresor mecánico.\n\nModelé en CATIA V5 el conjunto completo integrado al motor: el sistema de sobrealimentación, sus conductos, la admisión y los componentes auxiliares, cuidando el recorrido de cada línea y el espacio disponible alrededor del motor.\n\nEl proyecto se encuentra en etapa de desarrollo conceptual, por lo que los detalles de su funcionamiento se mantienen reservados.\n\nNota: algunas zonas de las imágenes están difuminadas de forma intencional para proteger la propiedad intelectual del diseño.",
     "herramientas": [
       "CATIA V5",
       "Motores de combustión interna",
@@ -105,12 +105,12 @@
     ],
     "area": "Motores",
     "contexto": "",
-    "portada": "img/sobrealim/01.jpg",
+    "portada": "img/motor/01.jpg",
     "imagenes": [
-      "img/sobrealim/01.jpg",
-      "img/sobrealim/02.jpg",
-      "img/sobrealim/03.jpg",
-      "img/sobrealim/04.jpg"
+      "img/motor/01.jpg",
+      "img/motor/02.jpg",
+      "img/motor/03.jpg",
+      "img/motor/04.jpg"
     ]
   },
   {

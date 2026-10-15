@@ -95,7 +95,7 @@
     "sobrealimentacion": {
       "titulo": "Unconventional forced-induction system",
       "resumen": "CAD design of an original forced-induction concept for a four-cylinder, four-stroke engine.",
-      "descripcion": "I developed an original forced-induction concept for a four-cylinder, four-stroke engine, based on an operating principle different from conventional systems such as turbochargers or superchargers.\n\nI modeled the complete assembly integrated into the engine in CATIA V5: the forced-induction system, its ducting, the intake and auxiliary components, paying attention to the routing of every line and the space available around the engine.\n\nThe project is at the conceptual development stage, so the details of how it works are kept confidential.",
+      "descripcion": "I developed an original forced-induction concept for a four-cylinder, four-stroke engine, based on an operating principle different from conventional systems such as turbochargers or superchargers.\n\nI modeled the complete assembly integrated into the engine in CATIA V5: the forced-induction system, its ducting, the intake and auxiliary components, paying attention to the routing of every line and the space available around the engine.\n\nThe project is at the conceptual development stage, so the details of how it works are kept confidential.\n\nNote: some areas of the images are intentionally blurred to protect the intellectual property of the design.",
       "herramientas": [
         "CATIA V5",
         "Internal combustion engines",
