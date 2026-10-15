@@ -1,7 +1,7 @@
 {
   "nombre": "Manuel Riart",
   "titulo": "Estudiante avanzado de Ingeniería Mecánica",
-  "bajada": "Estudiante avanzado de Ingeniería Mecánica en el ITBA con focalización en automotriz (87 % de la carrera completada). Experiencia en diseño CAD y análisis por elementos finitos aplicados a automóviles de competición, en Formula SAE y Turismo Carretera, complementada con adquisición de datos y trabajo práctico de taller.",
+  "bajada": "Estudiante avanzado de Ingeniería Mecánica en el ITBA con focalización en automotriz (87 % de la carrera completada). Experiencia en diseño CAD y análisis por elementos finitos aplicados a automóviles de competición, en Fórmula SAE y Turismo Carretera, complementada con adquisición de datos y trabajo práctico de taller.",
   "universidad": "ITBA — Ingeniería Mecánica, orientación Automotriz · Intercambio en la Universidad del País Vasco (UPV/EHU)",
   "email": "mriart@itba.edu.ar",
   "linkedin": "https://www.linkedin.com/in/manuel-riart-40a1b0241/",
@@ -45,7 +45,7 @@
     },
     {
       "fecha": "2023 – actualidad",
-      "titulo": "Diseño y fabricación — Formula SAE ITBA",
+      "titulo": "Diseño y fabricación — Fórmula SAE ITBA",
       "lugar": "Equipo de competición universitario",
       "detalle": "Diseño de la transmisión y de la pedalera. Desarrollo de un mockup para definir el habitáculo del nuevo monoplaza. Fabricación de componentes con soldadura TIG y MIG, torno y fresadora; conocimientos básicos de CNC."
     },
