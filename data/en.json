@@ -92,14 +92,14 @@
       ],
       "area": "CAD design"
     },
-    "sobrealimentacion-vapor": {
-      "titulo": "Steam supercharging",
-      "resumen": "Supercharging system for a four-stroke engine using steam generated from the engine coolant.",
-      "descripcion": "Design of a forced-induction system for a four-cylinder, four-stroke engine that recovers heat from the cooling water: the coolant is turned into steam, and that steam drives the engine's supercharging.\n\nI modeled the complete system integrated into the engine in CATIA V5: water and steam circuits, intake ducts, the boosting system and the radiator, paying attention to the routing of every line and the space available around the engine.",
+    "sobrealimentacion": {
+      "titulo": "Unconventional forced-induction system",
+      "resumen": "CAD design of an original forced-induction concept for a four-cylinder, four-stroke engine.",
+      "descripcion": "I developed an original forced-induction concept for a four-cylinder, four-stroke engine, based on an operating principle different from conventional systems such as turbochargers or superchargers.\n\nI modeled the complete assembly integrated into the engine in CATIA V5: the forced-induction system, its ducting, the intake and auxiliary components, paying attention to the routing of every line and the space available around the engine.\n\nThe project is at the conceptual development stage, so the details of how it works are kept confidential.",
       "herramientas": [
         "CATIA V5",
         "Internal combustion engines",
-        "Thermodynamics",
+        "Conceptual design",
         "Assemblies"
       ],
       "area": "Engines"

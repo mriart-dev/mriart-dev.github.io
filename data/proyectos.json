@@ -93,24 +93,24 @@
     ]
   },
   {
-    "id": "sobrealimentacion-vapor",
-    "titulo": "Sobrealimentación con vapor",
-    "resumen": "Sistema de sobrealimentación de un motor de cuatro tiempos mediante vapor generado a partir del líquido refrigerante.",
-    "descripcion": "Diseño de un sistema de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos que aprovecha el calor del agua de refrigeración: el agua se convierte en vapor y ese vapor se usa para impulsar la sobrealimentación del motor.\n\nModelé en CATIA V5 el conjunto completo integrado al motor: circuitos de agua y vapor, conductos de admisión, el sistema de sobrealimentación y el radiador, cuidando el recorrido de cada línea y el espacio disponible alrededor del motor.",
+    "id": "sobrealimentacion",
+    "titulo": "Sistema de sobrealimentación no convencional",
+    "resumen": "Diseño en CAD de un concepto propio de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos.",
+    "descripcion": "Desarrollé un concepto propio de sobrealimentación para un motor de cuatro cilindros y cuatro tiempos, basado en un principio de funcionamiento distinto al de los sistemas convencionales como el turbocompresor o el compresor mecánico.\n\nModelé en CATIA V5 el conjunto completo integrado al motor: el sistema de sobrealimentación, sus conductos, la admisión y los componentes auxiliares, cuidando el recorrido de cada línea y el espacio disponible alrededor del motor.\n\nEl proyecto se encuentra en etapa de desarrollo conceptual, por lo que los detalles de su funcionamiento se mantienen reservados.",
     "herramientas": [
       "CATIA V5",
       "Motores de combustión interna",
-      "Termodinámica",
+      "Diseño conceptual",
       "Ensambles"
     ],
     "area": "Motores",
     "contexto": "",
-    "portada": "img/sobrealimentacion-vapor/01.jpg",
+    "portada": "img/sobrealimentacion/01.jpg",
     "imagenes": [
-      "img/sobrealimentacion-vapor/01.jpg",
-      "img/sobrealimentacion-vapor/02.jpg",
-      "img/sobrealimentacion-vapor/03.jpg",
-      "img/sobrealimentacion-vapor/04.jpg"
+      "img/sobrealimentacion/01.jpg",
+      "img/sobrealimentacion/02.jpg",
+      "img/sobrealimentacion/03.jpg",
+      "img/sobrealimentacion/04.jpg"
     ]
   },
   {
