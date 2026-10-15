@@ -301,6 +301,7 @@ addEventListener('hashchange', () => {
 addEventListener('hashchange', () => {
   const h = location.hash.replace(/^#\/?/, '');
   if (h.startsWith('proyecto/') && window.goatcounter?.count) goatcounter.count({path: '/' + h, title: document.title});
+  if (h.startsWith('proyecto/') && window.va) va('pageview', {path: '/' + h, route: '/proyecto/[id]'});
 });
 
 // Lector de PDF dentro de la página (PDF.js funciona también en celulares)
