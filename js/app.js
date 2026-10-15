@@ -96,7 +96,7 @@ function pintarInterfaz() {
 
 // Contador de visitas privado (GoatCounter); se activa al completar "goatcounter" en estetica.json
 function contarVisitas() {
-  if (!estetica.goatcounter || /^(localhost|127\.)/.test(location.hostname)) return;
+  if (!estetica.goatcounter || window.esMio || /^(localhost|127\.)/.test(location.hostname)) return;
   const s = document.createElement('script');
   s.async = true; s.src = 'https://gc.zgo.at/count.js';
   s.dataset.goatcounter = `https://${estetica.goatcounter}.goatcounter.com/count`;
@@ -300,8 +300,8 @@ addEventListener('hashchange', () => {
 // Cuenta en GoatCounter cada proyecto abierto (la página cambia de sección sin recargar)
 addEventListener('hashchange', () => {
   const h = location.hash.replace(/^#\/?/, '');
-  if (h.startsWith('proyecto/') && window.goatcounter?.count) goatcounter.count({path: '/' + h, title: document.title});
-  if (h.startsWith('proyecto/') && window.va) va('pageview', {path: '/' + h, route: '/proyecto/[id]'});
+  if (h.startsWith('proyecto/') && !window.esMio && window.goatcounter?.count) goatcounter.count({path: '/' + h, title: document.title});
+  if (h.startsWith('proyecto/') && !window.esMio && window.va) va('pageview', {path: '/' + h, route: '/proyecto/[id]'});
 });
 
 // Lector de PDF dentro de la página (PDF.js funciona también en celulares)

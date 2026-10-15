@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap">
 <link id="font-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/estilos.css?v=202610151334">
+<link rel="stylesheet" href="css/estilos.css?v=202610151335">
 </head>
 <body>
 <div id="progreso" aria-hidden="true"></div>
@@ -92,8 +92,17 @@
 <article id="detalle" hidden></article>
 <div id="visor" hidden><button class="cerrar" aria-label="Cerrar">×</button><button class="prev" aria-label="Anterior">‹</button><img alt="" hidden><video muted loop playsinline hidden disablepictureinpicture></video><button class="next" aria-label="Siguiente">›</button><span class="contador"></span></div>
 
-<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script src="js/app.js?v=202610151334"></script>
+<script>
+// Abrir la página con ?yo=1 marca este navegador como "mío" y deja de contar sus visitas (?yo=0 lo revierte)
+(function () {
+  var q = new URLSearchParams(location.search).get('yo'), yo = false;
+  try { if (q === '1') localStorage.setItem('no-contar', '1'); if (q === '0') localStorage.removeItem('no-contar'); yo = localStorage.getItem('no-contar') === '1';
+        if (yo) localStorage.setItem('skipgc', 't'); else localStorage.removeItem('skipgc'); } catch (e) {}
+  window.esMio = yo;
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  if (!yo) { var s = document.createElement('script'); s.defer = true; s.src = '/_vercel/insights/script.js'; document.head.appendChild(s); }
+})();
+</script>
+<script src="js/app.js?v=202610151335"></script>
 </body>
 </html>
