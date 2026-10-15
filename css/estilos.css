@@ -21,7 +21,7 @@ body.listo{transition:background .4s,color .4s}
 .avatar{width:136px;height:136px;border-radius:50%;object-fit:cover;margin-bottom:24px;border:3px solid var(--bg2);box-shadow:0 0 0 1px var(--linea),0 10px 30px #0000001f}
 .eyebrow{color:var(--acento);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;margin-bottom:14px}
 h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.03em}
-.bajada{margin-top:22px;color:var(--sub);font-size:clamp(1rem,1.6vw,1.15rem);max-width:560px;text-wrap:pretty}
+.bajada{margin-top:22px;color:var(--sub);font-size:clamp(1rem,1.6vw,1.15rem);max-width:560px;text-wrap:pretty;text-align:justify;hyphens:manual}
 .acciones{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
 .btn{padding:12px 22px;border-radius:999px;background:var(--acento);color:#fff;font-weight:500;font-size:.95rem;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--acento) 40%,transparent)}
