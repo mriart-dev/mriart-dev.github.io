@@ -284,6 +284,14 @@ function ruta() {
   const sec = document.getElementById(h);
   if (sec) sec.scrollIntoView({behavior: 'smooth'});
 }
+// El nombre de arriba a la izquierda vuelve siempre al inicio
+$('.logo').addEventListener('click', e => {
+  e.preventDefault();
+  if (location.hash && location.hash !== '#/') history.pushState(null, '', location.pathname + location.search);
+  ruta();
+  scrollTo({top: 0, behavior: 'smooth'});
+});
+
 addEventListener('hashchange', () => {
   const sale = location.hash.startsWith('#/proyecto/') !== !$('#detalle').hidden;
   if (sale && document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(ruta);
